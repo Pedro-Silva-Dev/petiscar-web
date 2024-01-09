@@ -1,0 +1,11 @@
+<div class="container bg-white w-full rounded-lg shadow-sm">
+    <div *ngIf="header" class="w-full p-4 border-b">
+        <ng-content select="[header]"></ng-content>
+    </div>
+    <div *ngIf="body" class="w-full p-4">
+        <ng-content select="[body]"></ng-content>
+    </div>
+    <div *ngIf="footer" class="w-full p-4 border-t">
+        <ng-content select="[footer]"></ng-content>
+    </div>
+</div>
