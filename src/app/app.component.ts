@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CardComponent } from './shared/components/card/card.component';
+import { CardComponent } from './components/interface/card/card.component';
+import { ButtonPrimaryDirective } from './shared/directives/buttons/button-primary.directive';
+import { ButtonSecondaryDirective } from './shared/directives/buttons/button-secondary.directive';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,9 @@ import { CardComponent } from './shared/components/card/card.component';
   imports: [
     CommonModule,
     RouterOutlet,
-    CardComponent
+    CardComponent,
+    ButtonPrimaryDirective,
+    ButtonSecondaryDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
