@@ -5,6 +5,12 @@
 .ui-table thead tr {
     background-color: #f9f9f9;
 }
+
 .ui-table td {
-    padding: 1rem !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+}
+
+.ui-dropdown a:hover {
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }

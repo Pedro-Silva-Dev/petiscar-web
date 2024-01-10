@@ -22,6 +22,7 @@ export class UiCardComponent implements OnInit {
   @Input() body: boolean = true;
   @Input() footer: boolean = true;
 
-    ngOnInit(): void { }
+    ngOnInit(): void { 
+    }
 
 }

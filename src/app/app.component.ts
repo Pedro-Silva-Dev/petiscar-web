@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { UiCardComponent } from './components/interface/card/ui-card.component';
+import { UiDropdownComponent } from './components/interface/dropdown/ui-dropdown.component';
 import { UiTableComponent } from './components/interface/table/ui-table.component';
 import { UiButtonPrimaryDirective } from './shared/directives/buttons/ui-button-primary.directive';
 import { UiButtonSecondaryDirective } from './shared/directives/buttons/ui-button-secondary.directive';
@@ -15,7 +16,8 @@ import { UiButtonSecondaryDirective } from './shared/directives/buttons/ui-butto
     UiCardComponent,
     UiButtonPrimaryDirective,
     UiButtonSecondaryDirective,
-    UiTableComponent
+    UiTableComponent,
+    UiDropdownComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
