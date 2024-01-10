@@ -17,6 +17,7 @@ import { ChangeDetectionStrategy, Component, Input, type OnInit } from '@angular
 })
 export class CardComponent implements OnInit {
 
+  @Input() default: boolean = false;
   @Input() header: boolean = true;
   @Input() body: boolean = true;
   @Input() footer: boolean = true;
