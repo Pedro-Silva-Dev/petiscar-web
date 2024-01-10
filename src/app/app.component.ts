@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { CardComponent } from './components/interface/card/card.component';
 import { ButtonPrimaryDirective } from './shared/directives/buttons/button-primary.directive';
 import { ButtonSecondaryDirective } from './shared/directives/buttons/button-secondary.directive';
+import { TableComponent } from './components/interface/table/table.component';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ import { ButtonSecondaryDirective } from './shared/directives/buttons/button-sec
     RouterOutlet,
     CardComponent,
     ButtonPrimaryDirective,
-    ButtonSecondaryDirective
+    ButtonSecondaryDirective,
+    TableComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
