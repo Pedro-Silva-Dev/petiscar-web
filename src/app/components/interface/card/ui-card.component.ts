@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, type OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-card',
+    selector: 'app-ui-card',
     standalone: true,
     imports: [
         CommonModule,
     ],
-    templateUrl: './card.component.html',
+    templateUrl: './ui-card.component.html',
     styles: `
     :host {
       display: block;
@@ -15,7 +15,7 @@ import { ChangeDetectionStrategy, Component, Input, type OnInit } from '@angular
   `,
     changeDetection: ChangeDetectionStrategy.Default,
 })
-export class CardComponent implements OnInit {
+export class UiCardComponent implements OnInit {
 
   @Input() default: boolean = false;
   @Input() header: boolean = true;

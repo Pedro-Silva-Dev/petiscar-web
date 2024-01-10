@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CardComponent } from './components/interface/card/card.component';
-import { ButtonPrimaryDirective } from './shared/directives/buttons/button-primary.directive';
-import { ButtonSecondaryDirective } from './shared/directives/buttons/button-secondary.directive';
-import { TableComponent } from './components/interface/table/table.component';
+import { UiCardComponent } from './components/interface/card/ui-card.component';
+import { UiTableComponent } from './components/interface/table/ui-table.component';
+import { UiButtonPrimaryDirective } from './shared/directives/buttons/ui-button-primary.directive';
+import { UiButtonSecondaryDirective } from './shared/directives/buttons/ui-button-secondary.directive';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +12,10 @@ import { TableComponent } from './components/interface/table/table.component';
   imports: [
     CommonModule,
     RouterOutlet,
-    CardComponent,
-    ButtonPrimaryDirective,
-    ButtonSecondaryDirective,
-    TableComponent
+    UiCardComponent,
+    UiButtonPrimaryDirective,
+    UiButtonSecondaryDirective,
+    UiTableComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
