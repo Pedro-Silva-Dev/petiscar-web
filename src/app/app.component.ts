@@ -8,6 +8,8 @@ import { UiDropdownComponent } from './components/interface/ui-dropdown/ui-dropd
 import { UiTableComponent } from './components/interface/ui-table/ui-table.component';
 import { UiButtonPrimaryDirective } from './shared/directives/buttons/ui-button-primary.directive';
 import { UiButtonSecondaryDirective } from './shared/directives/buttons/ui-button-secondary.directive';
+import { UiInputDirective } from './shared/directives/forms/ui-input.directive';
+import { UiLabelDirective } from './shared/directives/forms/ui-label.directive';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +22,9 @@ import { UiButtonSecondaryDirective } from './shared/directives/buttons/ui-butto
     UiButtonSecondaryDirective,
     UiTableComponent,
     UiDropdownComponent,
-    UiModalComponent
+    UiModalComponent,
+    UiLabelDirective,
+    UiInputDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

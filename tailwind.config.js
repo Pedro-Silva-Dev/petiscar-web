@@ -4,8 +4,26 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+    },
   },
-  plugins: [],
+  daisyui: {
+    themes: [
+      {
+        petiscar: {
+          "primary": "#7c3aed",
+          "secondary": "#475569",
+          "accent": "#06b6d4",
+          "neutral": "#737373",
+          "base-100": "#ffffff",
+          "info": "#0ea5e9",
+          "success": "#10b981",
+          "warning": "#f59e0b",
+          "error": "#f43f5e",
+        },
+      },
+    ],
+  },
+  plugins: [require("daisyui")],
 }
 

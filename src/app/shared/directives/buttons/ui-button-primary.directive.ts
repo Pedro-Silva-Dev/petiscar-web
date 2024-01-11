@@ -13,7 +13,7 @@ export class UiButtonPrimaryDirective implements OnInit {
   } 
 
   private _setConfigElement(): void {
-    this._element.classList.add('px-4', 'py-1', 'text-sm', 'text-indigo-600', 'bg-white', 'rounded', 'border', 'border-indigo-500', 'outline-none', 'hover:bg-indigo-600', 'hover:text-white');
+    this._element.classList.add('btn', 'btn-sm', 'btn-outline', 'btn-primary', 'hover:!text-white');
   }
 
 

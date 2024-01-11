@@ -1,20 +1,21 @@
 import { Directive, ElementRef, OnInit, inject } from '@angular/core';
 
 @Directive({
-  selector: 'button[ui-secondary]',
+  selector: 'input[ui-input]',
   standalone: true,
 })
-export class UiButtonSecondaryDirective implements OnInit {
+export class UiInputDirective implements OnInit {
 
   private _element = inject(ElementRef).nativeElement as HTMLElement;
 
   ngOnInit(): void {
     this._setConfigElement();
-  }
+  } 
 
   private _setConfigElement(): void {
-    this._element.classList.add('btn', 'btn-sm', 'btn-outline', 'text-slate-600', 'hover:bg-slate-500', 'hover:text-white');
+    this._element.classList.add('input', 'input-bordered', 'input-md', 'w-full', 'max-w-xs', 'focus:outline-none');
   }
 
 
-}
+
+ }
