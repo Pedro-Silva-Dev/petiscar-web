@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UiCardComponent } from './components/interface/card/ui-card.component';
-import { UiDropdownComponent } from './components/interface/dropdown/ui-dropdown.component';
-import { UiTableComponent } from './components/interface/table/ui-table.component';
+import { UiModalService } from './components/interface/modals/ui-modal.service';
+import { UiModalComponent } from './components/interface/modals/ui-modal/ui-modal.component';
+import { UiCardComponent } from './components/interface/ui-card/ui-card.component';
+import { UiDropdownComponent } from './components/interface/ui-dropdown/ui-dropdown.component';
+import { UiTableComponent } from './components/interface/ui-table/ui-table.component';
 import { UiButtonPrimaryDirective } from './shared/directives/buttons/ui-button-primary.directive';
 import { UiButtonSecondaryDirective } from './shared/directives/buttons/ui-button-secondary.directive';
 
@@ -17,11 +19,30 @@ import { UiButtonSecondaryDirective } from './shared/directives/buttons/ui-butto
     UiButtonPrimaryDirective,
     UiButtonSecondaryDirective,
     UiTableComponent,
-    UiDropdownComponent
+    UiDropdownComponent,
+    UiModalComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  
   title = 'petiscar-web';
+
+  protected uiModalService: UiModalService = inject(UiModalService);
+  public modal: any;
+  
+
+  ngOnInit(): void {
+    
+  }
+
+  public openModal(): void {
+    this.uiModalService.open();
+  }
+
+  public show(): void {
+    console.log(`Chamou`);
+    
+  }
 }
