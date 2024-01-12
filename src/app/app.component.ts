@@ -17,14 +17,6 @@ import { UiLabelDirective } from './shared/directives/forms/ui-label.directive';
   imports: [
     CommonModule,
     RouterOutlet,
-    UiCardComponent,
-    UiButtonPrimaryDirective,
-    UiButtonSecondaryDirective,
-    UiTableComponent,
-    UiDropdownComponent,
-    UiModalComponent,
-    UiLabelDirective,
-    UiInputDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

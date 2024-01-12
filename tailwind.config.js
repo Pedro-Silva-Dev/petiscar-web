@@ -11,7 +11,8 @@ module.exports = {
     themes: [
       {
         petiscar: {
-          "primary": "#7c3aed",
+          // "primary": "#7c3aed",
+          "primary": "#d946ef",
           "secondary": "#475569",
           "accent": "#06b6d4",
           "neutral": "#737373",

@@ -23,13 +23,9 @@ export class UiModalComponent implements OnInit {
     @Input() body: boolean = true;
     @Input() footer: boolean = true;
 
-    @HostListener(`document:keydown.escape`, [`$event`]) onKey(event: KeyboardEvent) {
-        this.uiModalService?.close()
-    }
-    
+
     ngOnInit(): void {
         this._setModalEvent();
-        
     }
 
     private _setModalEvent(): void {

@@ -13,7 +13,7 @@ export class UiLabelDirective {
   } 
 
   private _setConfigElement(): void {
-    this._element.classList.add('label');
+    this._element.classList.add('label', 'text-sm');
   }
 
 }

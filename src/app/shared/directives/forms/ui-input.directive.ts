@@ -13,7 +13,7 @@ export class UiInputDirective implements OnInit {
   } 
 
   private _setConfigElement(): void {
-    this._element.classList.add('input', 'input-bordered', 'input-md', 'w-full', 'max-w-xs', 'focus:outline-none');
+    this._element.classList.add('input', 'input-bordered', 'input-md', 'w-full', 'focus:outline-none');
   }
 
 
