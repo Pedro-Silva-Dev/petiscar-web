@@ -6,8 +6,8 @@
     </div>
     <div class="inline-flex justify-center">
       <ul class="mt-10">
-        @for (menu of sidebarList; track $index) {
-          <li class="inline-flex mb-7">
+        @for (menu of sidebarList; track $index; let isLast = $last) {
+          <li class="{{isLast ? 'inline-flex mb-7' : 'inline-flex mb-7'}}">
             <i-feather ui-icon [name]="menu.icon" class="cursor-pointer *:duration-500 {{!open() ? '*:rotate-[360deg]': ''}} "></i-feather>
             <span class="text-lg text-primary mt-0.5 ml-6 font-medium duration-500 {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}">{{menu.name}}</span>
           </li>

@@ -1,43 +1,41 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Auth } from '../models/public/auth.model';
 import { BaseService } from '../shared/services/base.service';
-import { Injectable, afterNextRender } from '@angular/core';
+import { Inject, Injectable, afterNextRender, inject } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { AuthToken } from '../models/public/auth-token.model';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { AuthUserToken } from '../models/public/auth-user-token.model';
 import Hashids from "hashids";
 import { UserAuth } from '../models/public/user-auth.model';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService extends BaseService {
 
-  
   private _salt = "d41d8cd98f00b204e9800998ecf8427e";
   private _authKey = 'authKey';
+  private _localStorage: any = null;
 
-  // constructor() {
-  //   super();
-  //   afterNextRender(() => {
-  //     this.setAuthToken('');
-  //     this.getAuthToken();
-  //   })
-  // }
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    super();
+    this._localStorage = document.defaultView?.localStorage;
+  }
 
   public setAuthToken(token: string): void {
-    afterNextRender(() => {
-      localStorage.removeItem(this._authKey);
-      localStorage.setItem(this._authKey, JSON.stringify(token));  
-    })
+    if(this._localStorage) {
+      this._localStorage.removeItem(this._authKey);
+      this._localStorage.setItem(this._authKey, JSON.stringify(token));  
+    }
   }
 
   public getAuthToken(): string {
-    afterNextRender(() => {
-      const token = localStorage.getItem(this._authKey);
+    if(this._localStorage) {
+      const token = this._localStorage.getItem(this._authKey);
       return token ? JSON.parse(token) : null;
-    })
+    }
     return '';
   }
 
