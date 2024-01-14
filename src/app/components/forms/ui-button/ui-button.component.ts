@@ -10,7 +10,7 @@ import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-
     UiButtonPrimaryDirective
   ],
   template: `
-  <button (click)="clickEvent()" ui-primary [disabled]="loadAction()" class="w-full">
+  <button (click)="clickEvent()" ui-primary class="w-full {{loadAction() ? 'pointer-events-none' : ''}}">
     {{buttonText()}}
     @if(loadAction()) {
       <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">

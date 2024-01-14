@@ -10,6 +10,8 @@ import { UiButtonPrimaryDirective } from './shared/directives/buttons/ui-button-
 import { UiButtonSecondaryDirective } from './shared/directives/buttons/ui-button-secondary.directive';
 import { UiInputDirective } from './shared/directives/forms/ui-input.directive';
 import { UiLabelDirective } from './shared/directives/forms/ui-label.directive';
+import { UiToastComponent } from './components/interface/ui-toast/ui-toast.component';
+import { UiSidebarComponent } from './components/interface/ui-sidebar/ui-sidebar.component';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +19,8 @@ import { UiLabelDirective } from './shared/directives/forms/ui-label.directive';
   imports: [
     CommonModule,
     RouterOutlet,
+    UiToastComponent,
+    UiSidebarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
