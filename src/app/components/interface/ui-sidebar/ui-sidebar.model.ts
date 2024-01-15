@@ -5,4 +5,5 @@ export interface UiSidebar {
   icon: UI_ICON;
   roles: string[];
   order: number;
+  link?: string;
 }

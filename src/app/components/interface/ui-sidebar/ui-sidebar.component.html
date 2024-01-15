@@ -1,20 +1,36 @@
 <div class="flex">
-  <div class="bg-slate-100 h-screen p-5 pt-8 relative duration-500 {{open() ? 'w-48' : 'w-[5rem]'}}">
-    <div class="inline-flex justify-center">
-      <i-feather (click)="openSidebar()" ui-icon [name]="principalSidebar.icon" class="cursor-pointer *:duration-500 {{!open() ? '*:rotate-[360deg]' : ''}}" data-tip="hello"></i-feather>
-      <h1 (click)="openSidebar()" class="text-2xl mt-0.5 ml-6 text-primary font-medium cursor-pointer duration-500 {{open() ? 'translate-0 scale-1' : '-translate-x-20 scale-0'}}">{{principalSidebar.name}}</h1>
+  @if (isUserAuth()) {
+    <div class="bg-slate-100 h-screen p-5 pt-8 relative duration-500 {{open() ? 'w-48' : 'w-[5rem]'}}">
+      <div class="inline-flex justify-center">
+        <i-feather (click)="openSidebar()" ui-icon [name]="principalSidebar.icon" class="cursor-pointer *:duration-500 {{!open() ? '*:rotate-[360deg]' : ''}}" data-tip="hello"></i-feather>
+        <h1 (click)="openSidebar()" class="text-2xl mt-0.5 ml-6 text-primary font-medium cursor-pointer duration-500 {{open() ? 'translate-0 scale-1' : '-translate-x-20 scale-0'}}">{{principalSidebar.name}}</h1>
+      </div>
+      <div class="inline-flex justify-center">
+        <ul class="mt-10">
+          @for (menu of sidebarList; track $index; let isLast = $last) {
+              @if (isLast) {
+                @if (open()) {
+                  <li (click)="logout()" class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} inline-flex mb-7}}">
+                    <i-feather ui-icon [name]="menu.icon" class="*:duration-500 {{!open() ? '*:rotate-[360deg] cursor-pointer hover:scale-125': ''}} "></i-feather>
+                    <span class="text-lg text-primary mt-0.5 ml-6 font-medium duration-500 {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}">{{menu.name}}</span>
+                  </li>
+                }@else {
+                  <li class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} inline-flex mb-7}}">
+                    <i-feather (click)="logout()" ui-icon [name]="menu.icon" class="*:duration-500 {{!open() ? '*:rotate-[360deg] cursor-pointer hover:scale-125': ''}} "></i-feather>
+                    <span class="text-lg text-primary mt-0.5 ml-6 font-medium duration-500 {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}"></span>
+                  </li>
+                }
+              }@else {
+                <li class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} inline-flex mb-7">
+                  <i-feather ui-icon [name]="menu.icon" class="*:duration-500 {{!open() ? '*:rotate-[360deg] cursor-pointer hover:scale-125': ''}} "></i-feather>
+                  <span class="text-lg text-primary mt-0.5 ml-6 font-medium duration-500 {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}">{{open() ? menu.name : ''}}</span>
+                </li>
+              }
+          }
+        </ul>
+      </div>
     </div>
-    <div class="inline-flex justify-center">
-      <ul class="mt-10">
-        @for (menu of sidebarList; track $index; let isLast = $last) {
-          <li class="{{isLast ? 'inline-flex mb-7' : 'inline-flex mb-7'}}">
-            <i-feather ui-icon [name]="menu.icon" class="cursor-pointer *:duration-500 {{!open() ? '*:rotate-[360deg]': ''}} "></i-feather>
-            <span class="text-lg text-primary mt-0.5 ml-6 font-medium duration-500 {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}">{{menu.name}}</span>
-          </li>
-        }
-      </ul>
-    </div>
-  </div>
+  }
   <ng-content select="[content]"></ng-content>
 </div>
 

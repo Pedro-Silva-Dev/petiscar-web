@@ -9,34 +9,39 @@ import { AuthUserToken } from '../models/public/auth-user-token.model';
 import Hashids from "hashids";
 import { UserAuth } from '../models/public/user-auth.model';
 import { DOCUMENT } from '@angular/common';
+import { LocalStorageService } from '../shared/services/local-storage.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService extends BaseService {
 
+  private _localStorageService: LocalStorageService = inject(LocalStorageService);
+  private _router: Router = inject(Router);
+
   private _salt = "d41d8cd98f00b204e9800998ecf8427e";
   private _authKey = 'authKey';
-  private _localStorage: any = null;
+  private _isUserAuthEvent$ = new BehaviorSubject(this.isUserAuth());
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
-    super();
-    this._localStorage = document.defaultView?.localStorage;
+  public getIsUserAuthEvent(): Observable<boolean> {
+    return this._isUserAuthEvent$.asObservable();
+  }
+
+  public setUserAuth(value: boolean): void {
+    if(value && this.isUserAuth()) {
+      this._isUserAuthEvent$.next(true);
+    }else {
+      this._isUserAuthEvent$.next(false);
+    }
   }
 
   public setAuthToken(token: string): void {
-    if(this._localStorage) {
-      this._localStorage.removeItem(this._authKey);
-      this._localStorage.setItem(this._authKey, JSON.stringify(token));  
-    }
+    this._localStorageService.setItemStorage(this._authKey, token);
   }
 
   public getAuthToken(): string {
-    if(this._localStorage) {
-      const token = this._localStorage.getItem(this._authKey);
-      return token ? JSON.parse(token) : null;
-    }
-    return '';
+    return this._localStorageService.getItemStorage(this._authKey);
   }
 
   public getUser(): UserAuth {
@@ -53,6 +58,16 @@ export class AuthService extends BaseService {
 
   public getUserId(): number {
     return this.getUser()?.id;
+  }
+
+  public isUserAuth(): boolean {
+    return this.getUser()?.id ? true : false;
+  }
+
+  public logout(): void {
+    this._localStorageService.removeItemStorage(this._authKey);
+    this.setUserAuth(false);
+    this._router.navigate([`/auth`]);
   }
 
   public login(auth: Auth, eventComponent?: BehaviorSubject<boolean>): Observable<HttpResponse<AuthToken>> {

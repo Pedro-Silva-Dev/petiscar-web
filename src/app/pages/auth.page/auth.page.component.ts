@@ -64,6 +64,7 @@ export class AuthPageComponent {
         if(res.status == 200) {
           const token: string = res.body ? res.body.token : '';
           this._setAuthTokenStorage(token);
+          this._authService.setUserAuth(true);
           this._redirectHomePage();
         }
       },
@@ -71,6 +72,7 @@ export class AuthPageComponent {
         if(err.status == 403) {
           this._toastService.sendWarningMessage(`Usuário ou senha inválida.`)
         }
+        this._authService.setUserAuth(false);
         this.loadLogin.set(false);
       }
     })

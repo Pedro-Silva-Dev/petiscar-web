@@ -7,4 +7,5 @@ export enum UI_ICON {
   PAYMENT = `dollar-sign`,
   DELIVERY = `truck`,
   USER = `user`,
+  LOG_OUT = `log-out`,
 }

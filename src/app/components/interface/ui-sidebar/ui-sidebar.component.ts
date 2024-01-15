@@ -1,11 +1,12 @@
 import { UiSidebar } from './ui-sidebar.model';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { UI_ICON } from '../../../shared/enums/ui-icons.num';
 import { FeatherModule } from 'angular-feather';
 import { UiIconDirective } from '../../../shared/directives/interface/ui-icon.directive';
 import { AuthService } from '../../../services/auth.service';
 import { UserAuth } from '../../../models/public/user-auth.model';
+import { Unsubscribable } from 'rxjs';
 
 @Component({
   selector: 'app-ui-sidebar',
@@ -23,11 +24,13 @@ import { UserAuth } from '../../../models/public/user-auth.model';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UiSidebarComponent implements OnInit {
-  
+export class UiSidebarComponent implements OnInit, OnDestroy {
+ 
   private _authService: AuthService = inject(AuthService);
+  private _unsubscribe: Unsubscribable;
 
   protected open = signal(false);
+  protected isUserAuth = signal(false);
   protected sidebarList: UiSidebar[] = [];
   protected principalSidebar: UiSidebar =  {name: 'Petiscar', icon: UI_ICON.MENU, roles: [], order: 0};
   protected user: UserAuth = this._authService.getUser();
@@ -37,8 +40,17 @@ export class UiSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._setIsUserAuthEvent();
     this._setConfigSidebar();
   } 
+
+  ngOnDestroy(): void {
+    this._unsubscribe?.unsubscribe();
+  }
+
+  public logout(): void {
+    this._authService.logout();
+  }
 
   /**************** METHODS PRIVATE ****************/
 
@@ -60,8 +72,9 @@ export class UiSidebarComponent implements OnInit {
     const paymentMenu: UiSidebar = {name: 'Promoções', icon: UI_ICON.PAYMENT, roles: [], order: 5};
     const deliveryMenu: UiSidebar = {name: 'Entregas', icon: UI_ICON.DELIVERY, roles: [], order: 6};
     const userMenu: UiSidebar = {name: this.user?.name ?? 'User', icon: UI_ICON.USER, roles: [], order: 99};
+    const logoutMenu: UiSidebar = {name: 'Sair', icon: UI_ICON.LOG_OUT, roles: [], order: 100};
 
-    return [productMenu, categoryMenu, promotionMenu, shopMenu, paymentMenu, deliveryMenu, userMenu];
+    return [productMenu, categoryMenu, promotionMenu, shopMenu, paymentMenu, deliveryMenu, userMenu, logoutMenu];
   }
 
 
@@ -77,6 +90,12 @@ export class UiSidebarComponent implements OnInit {
       return isValid;
     }
     return true;
+  }
+
+  private _setIsUserAuthEvent(): void {
+    this._unsubscribe = this._authService.getIsUserAuthEvent().subscribe(res => {
+      this.isUserAuth.set(res);
+    });
   }
 
 }
