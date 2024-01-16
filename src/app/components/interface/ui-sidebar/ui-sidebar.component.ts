@@ -7,9 +7,11 @@ import { UiIconDirective } from '../../../shared/directives/interface/ui-icon.di
 import { AuthService } from '../../../services/auth.service';
 import { UserAuth } from '../../../models/public/user-auth.model';
 import { Unsubscribable } from 'rxjs';
+import { ROUTE } from '../../../shared/enums/route.enum';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-ui-sidebar',
+  selector: 'ui-sidebar',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,12 +29,13 @@ import { Unsubscribable } from 'rxjs';
 export class UiSidebarComponent implements OnInit, OnDestroy {
  
   private _authService: AuthService = inject(AuthService);
+  private _router: Router = inject(Router);
   private _unsubscribe: Unsubscribable;
 
   protected open = signal(false);
   protected isUserAuth = signal(false);
   protected sidebarList: UiSidebar[] = [];
-  protected principalSidebar: UiSidebar =  {name: 'Petiscar', icon: UI_ICON.MENU, roles: [], order: 0};
+  protected principalSidebar: UiSidebar =  {name: 'Petiscar', icon: UI_ICON.MENU, roles: [], order: 0, link: ROUTE.INDEX};
   protected user: UserAuth = this._authService.getUser();
 
   public openSidebar(): void {
@@ -52,6 +55,12 @@ export class UiSidebarComponent implements OnInit, OnDestroy {
     this._authService.logout();
   }
 
+  public redirectPage(menu: UiSidebar): void {
+    if(menu?.link) {
+      this._router.navigate([`/${menu.link}`]);
+    }
+  }
+
   /**************** METHODS PRIVATE ****************/
 
   private _setConfigSidebar(): void {
@@ -65,14 +74,14 @@ export class UiSidebarComponent implements OnInit, OnDestroy {
   }
 
   private _getMenuList(): UiSidebar[] {
-    const promotionMenu: UiSidebar = {name: 'Promoções', icon: UI_ICON.PROMOTION, roles: [], order: 3};
-    const productMenu: UiSidebar = {name: 'Produtos', icon: UI_ICON.PRODUCT, roles: [], order: 1};
-    const categoryMenu: UiSidebar = {name: 'Categorias', icon: UI_ICON.CATEGORY, roles: [], order: 2};    
-    const shopMenu: UiSidebar = {name: 'Compras', icon: UI_ICON.SHOP, roles: [], order: 4};
-    const paymentMenu: UiSidebar = {name: 'Promoções', icon: UI_ICON.PAYMENT, roles: [], order: 5};
-    const deliveryMenu: UiSidebar = {name: 'Entregas', icon: UI_ICON.DELIVERY, roles: [], order: 6};
-    const userMenu: UiSidebar = {name: this.user?.name ?? 'User', icon: UI_ICON.USER, roles: [], order: 99};
-    const logoutMenu: UiSidebar = {name: 'Sair', icon: UI_ICON.LOG_OUT, roles: [], order: 100};
+    const promotionMenu: UiSidebar = {name: 'Promoções', icon: UI_ICON.PROMOTION, roles: [], order: 3, link: ROUTE.PRODUCT};
+    const productMenu: UiSidebar = {name: 'Produtos', icon: UI_ICON.PRODUCT, roles: [], order: 1, link: ROUTE.PRODUCT};
+    const categoryMenu: UiSidebar = {name: 'Categorias', icon: UI_ICON.CATEGORY, roles: [], order: 2, link: ROUTE.PRODUCT  };   
+    const shopMenu: UiSidebar = {name: 'Compras', icon: UI_ICON.SHOP, roles: [], order: 4, link: ROUTE.PRODUCT};
+    const paymentMenu: UiSidebar = {name: 'Promoções', icon: UI_ICON.PAYMENT, roles: [], order: 5, link: ROUTE.PRODUCT};
+    const deliveryMenu: UiSidebar = {name: 'Entregas', icon: UI_ICON.DELIVERY, roles: [], order: 6, link: ROUTE.PRODUCT};
+    const userMenu: UiSidebar = {name: 'Conta', icon: UI_ICON.USER, roles: [], order: 99, link: ROUTE.PRODUCT};
+    const logoutMenu: UiSidebar = {name: 'Sair', icon: UI_ICON.LOG_OUT, roles: [], order: 100, link: ROUTE.PRODUCT};
 
     return [productMenu, categoryMenu, promotionMenu, shopMenu, paymentMenu, deliveryMenu, userMenu, logoutMenu];
   }

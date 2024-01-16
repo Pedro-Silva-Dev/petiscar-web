@@ -11,6 +11,7 @@ import { Auth } from '../../models/public/auth.model';
 import { UiToastComponent } from '../../components/interface/ui-toast/ui-toast.component';
 import { UiToastService } from '../../services/ui-toast.service';
 import { Router } from '@angular/router';
+import { ROUTE } from '../../shared/enums/route.enum';
 
 @Component({
   selector: 'app-auth.page',
@@ -84,7 +85,7 @@ export class AuthPageComponent {
 
   private _redirectHomePage(): void {
     this.loadLogin.set(false);
-    this._router.navigate([`/`]);
+    this._router.navigate([`/${ROUTE.PRODUCT}`]);
   }
 
 

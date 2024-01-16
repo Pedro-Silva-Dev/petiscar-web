@@ -1,8 +1,28 @@
-<table class="ui-table table-auto bg-white w-full">
-    <thead  class="table-header-group">
-        <ng-content select="[header]"></ng-content>
-    </thead>
-    <tbody class="table-row-group">
-        <ng-content select="[body]"></ng-content>
-    </tbody>
-</table>
+<ui-card [header]="header" [footer]="footer">
+    @if (header) {
+        <ng-container header>
+            <ng-content select="[header]"></ng-content>
+        </ng-container>
+    }
+    <ng-container body>
+        <div class="overflow-x-auto md:h-[40rem] h-[30rem]">
+            @if(!loadEvent()) {
+                <table class="table table-pin-rows duration-300 {{animationEvent()  ? 'opacity-0' : 'opacity-1'}}">
+                    <thead class="text-base">
+                      <ng-content select="[thead]"></ng-content>
+                    </thead>
+                    <tbody>
+                      <ng-content select="[tbody]"></ng-content>
+                    </tbody>
+                </table>
+            }@else {
+                <div class="skeleton w-full h-full duration-300 {{animationEvent() ? 'opacity-1' : 'opacity-0'}}"></div>
+            }
+        </div>
+    </ng-container>
+    @if(footer) {
+        <ng-container footer>
+            <ng-content select="[footer]"></ng-content>
+        </ng-container>
+    }
+</ui-card>

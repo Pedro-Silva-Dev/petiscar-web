@@ -1,3 +1,4 @@
+import { ROUTE } from "../../../shared/enums/route.enum";
 import { UI_ICON } from "../../../shared/enums/ui-icons.num";
 
 export interface UiSidebar {
@@ -5,5 +6,5 @@ export interface UiSidebar {
   icon: UI_ICON;
   roles: string[];
   order: number;
-  link?: string;
+  link: ROUTE;
 }

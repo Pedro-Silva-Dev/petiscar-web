@@ -1,3 +1,4 @@
+import { UiToastService } from './../../services/ui-toast.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, throwError, take, tap, catchError } from 'rxjs';
@@ -11,8 +12,9 @@ const BASE_URL = environment.api;
 export class BaseService {
 
   protected http: HttpClient = inject(HttpClient);
+  protected toastrService: UiToastService = inject(UiToastService);
 
-  protected get(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, build?: any, sort?: string): Observable<HttpResponse<any>> {
+  protected get(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError?: string, build?: any, sort?: string): Observable<HttpResponse<any>> {
     eventComponent?.next(true);
     const sortParam = sort ? `&${sort}` : '';
     const pageCache = false;
@@ -24,7 +26,9 @@ export class BaseService {
     }else {
       return this.http.get<any>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}${sortParam}`, { observe: 'response' }).pipe(catchError(
       (err: any) => {
-          // this.toastrService.error(msgError);
+          if(msgError) {
+            this.toastrService.sendErrorMessage(msgError);
+          }
           eventComponent?.next(false);
           return throwError(() => err);
         }
@@ -32,33 +36,39 @@ export class BaseService {
     }
   }
 
-  protected post(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, build?: any): Observable<HttpResponse<any>> {    
+  protected post(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError?: string, build?: any): Observable<HttpResponse<any>> {    
     eventComponent?.next(true);
     return this.http.post<any>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}`, data, { observe: 'response' }).pipe(catchError(
       (err: any) => {
-        // this.toastrService.error(msgError);
+        if(msgError) {
+          this.toastrService.sendErrorMessage(msgError);
+        }
         eventComponent?.next(false);
         return throwError(() => err);
       }
     )).pipe(take(1)).pipe(tap((_: any) => eventComponent?.next(false)));
   }
 
-  protected put(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, build?: any): Observable<HttpResponse<any>> {
+  protected put(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError?: string, build?: any): Observable<HttpResponse<any>> {
     eventComponent?.next(true);
     return this.http.put<any>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}`, data, { observe: 'response' }).pipe(catchError(
       (err: any) => {
-        // this.toastrService.error(msgError);
+        if(msgError) {
+          this.toastrService.sendErrorMessage(msgError);
+        }
         eventComponent?.next(false);
         return throwError(() => err);
       }
     )).pipe(take(1)).pipe(tap((_: any) => eventComponent?.next(false)));
   }
 
-  protected delete(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError: string = `Ocorre um erro no processo, por favor contate o suporte.`, build?: any): Observable<HttpResponse<any>> {
+  protected delete(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError?: string, build?: any): Observable<HttpResponse<any>> {
     eventComponent?.next(true);
     return this.http.delete<boolean>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}`, { observe: 'response' }).pipe(catchError(
       (err: any) => {
-        // this.toastrService.error(msgError);
+        if(msgError) {
+          this.toastrService.sendErrorMessage(msgError);
+        }
         eventComponent?.next(false);
         return throwError(() => err);
       }

@@ -9,19 +9,12 @@
         <ul class="mt-10">
           @for (menu of sidebarList; track $index; let isLast = $last) {
               @if (isLast) {
-                @if (open()) {
-                  <li (click)="logout()" class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} inline-flex mb-7}}">
+                  <li (click)="logout()" class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} flex mb-7}}">
                     <i-feather ui-icon [name]="menu.icon" class="*:duration-500 {{!open() ? '*:rotate-[360deg] cursor-pointer hover:scale-125': ''}} "></i-feather>
                     <span class="text-lg text-primary mt-0.5 ml-6 font-medium duration-500 {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}">{{menu.name}}</span>
                   </li>
-                }@else {
-                  <li class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} inline-flex mb-7}}">
-                    <i-feather (click)="logout()" ui-icon [name]="menu.icon" class="*:duration-500 {{!open() ? '*:rotate-[360deg] cursor-pointer hover:scale-125': ''}} "></i-feather>
-                    <span class="text-lg text-primary mt-0.5 ml-6 font-medium duration-500 {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}"></span>
-                  </li>
-                }
               }@else {
-                <li class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} inline-flex mb-7">
+                <li (click)="redirectPage(menu)" class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} flex mb-7">
                   <i-feather ui-icon [name]="menu.icon" class="*:duration-500 {{!open() ? '*:rotate-[360deg] cursor-pointer hover:scale-125': ''}} "></i-feather>
                   <span class="text-lg text-primary mt-0.5 ml-6 font-medium duration-500 {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}">{{open() ? menu.name : ''}}</span>
                 </li>

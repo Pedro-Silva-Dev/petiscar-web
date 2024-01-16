@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-button-primary.directive';
 
 @Component({
-    selector: 'app-ui-dropdown',
+    selector: 'ui-dropdown',
     standalone: true,
     imports: [
         CommonModule,

@@ -1,0 +1,28 @@
+<div class="grid grid-cols-1 p-4">
+  <div>
+    <h3 class="md:text-2xl sm:text-lg">Produtos</h3>
+  </div>
+  <div class="mt-4">
+    <ui-table [header]="false" [loadEvent$]="loadPageProductEvent$">
+      <ng-container thead>
+        <tr>
+          <th>Nome</th>
+          <th>Preço</th>
+          <th>Estoque</th>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </ng-container>
+      <ng-container tbody>
+        @for (product of productList; track $index) {
+          <tr>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.stock}}</td>
+            <td>{{product.description}}</td>
+            <td>ACOES</td>
+          </tr>
+        }
+      </ng-container>
+    </ui-table>
+</div>

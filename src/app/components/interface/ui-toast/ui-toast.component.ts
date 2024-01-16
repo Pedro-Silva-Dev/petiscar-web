@@ -3,16 +3,16 @@ import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } 
 import { UiToastService } from '../../../services/ui-toast.service';
 
 @Component({
-  selector: 'app-ui-toast',
+  selector: 'ui-toast',
   standalone: true,
   imports: [
     CommonModule,
   ],
   template: `
-      <div class="transition-opacity duration-1000 ease-out {{active() ? 'opacity-100' : 'opacity-0'}}">
+      <div class="transition-opacity duration-1000 ease-out {{active() ? 'opacity-100 z-50 fixed' : 'opacity-0'}}">
         <div class="toast toast-top toast-end">
-          <div class="alert {{type()}}">
-            <span>{{text()}}</span>
+          <div class="md:w-[25rem] alert {{type()}}">
+            <span class="text-wrap">{{text()}}</span>
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@ export class UiToastComponent implements OnInit {
   private _timeMessage(time: number = 3000): void {
     this.active.set(true);
     setTimeout(() => {
-      this.active.set(false);
+      // this.active.set(false);
     }, time);
   }
   
