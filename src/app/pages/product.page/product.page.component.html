@@ -3,7 +3,7 @@
     <h3 class="md:text-2xl sm:text-lg">Produtos</h3>
     <div class="flex">
       <button ui-primary>Novo</button>
-      <ui-button-icon class="ml-2"></ui-button-icon>
+      <ui-button-icon (click)="displaySideModal()" [loadAction]="isLoadingButton" class="ml-2"></ui-button-icon>
     </div>
   </div>
   <div class="mt-4">
@@ -44,3 +44,5 @@
       }
     </ui-table>
 </div>
+
+<app-ui-modal-side></app-ui-modal-side>

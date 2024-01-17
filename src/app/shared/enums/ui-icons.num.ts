@@ -11,4 +11,5 @@ export enum UI_ICON {
   ARROW_LEFT = `arrow-left`,
   ARROW_RIGHT = `arrow-right`,
   SEARCH = `search`,
+  CLOSE = `x-circle`,
 }

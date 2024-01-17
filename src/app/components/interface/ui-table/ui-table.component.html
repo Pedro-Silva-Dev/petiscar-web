@@ -7,7 +7,7 @@
     <ng-container body>
         <div class="overflow-x-auto md:h-[40rem] h-[30rem]">
             @if(!loadEvent()) {
-                <table class="table table-pin-rows duration-300 {{animationEvent()  ? 'opacity-0' : 'opacity-1'}}">
+                <table class="table duration-300 {{animationEvent()  ? 'opacity-0' : 'opacity-1'}}">
                     <thead class="text-base">
                       <ng-content select="[thead]"></ng-content>
                     </thead>

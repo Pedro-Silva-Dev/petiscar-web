@@ -9,6 +9,8 @@ import { UiPaginationComponent } from '../../components/interface/ui-pagination/
 import { UiDropdownComponent } from '../../components/interface/ui-dropdown/ui-dropdown.component';
 import { UiButtonPrimaryDirective } from '../../shared/directives/buttons/ui-button-primary.directive';
 import { UiButtonIconComponent } from '../../components/forms/ui-button/ui-button-icon.component';
+import { UiModalSideComponent } from '../../components/interface/modals/ui-modal-side/ui-modal-side.component';
+import { UiModalService } from '../../components/interface/modals/ui-modal.service';
 
 @Component({
   selector: 'app-product.page',
@@ -19,7 +21,8 @@ import { UiButtonIconComponent } from '../../components/forms/ui-button/ui-butto
     UiPaginationComponent,
     UiDropdownComponent,
     UiButtonPrimaryDirective,
-    UiButtonIconComponent
+    UiButtonIconComponent,
+    UiModalSideComponent
   ],
   templateUrl: './product.page.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
@@ -27,6 +30,7 @@ import { UiButtonIconComponent } from '../../components/forms/ui-button/ui-butto
 export class ProductPageComponent implements OnInit {
 
   private _productService: ProductService = inject(ProductService);
+  private _modalService: UiModalService = inject(UiModalService);
 
   protected loadPageProductEvent$ = new BehaviorSubject(false);
 
@@ -34,6 +38,7 @@ export class ProductPageComponent implements OnInit {
   protected size: number = 12;
   protected pagination: Pagination<Product>;
   protected productList: Product[] = [];
+  protected isLoadingButton = signal(false);
 
   ngOnInit(): void { 
     this._setPageProduct();
@@ -49,6 +54,9 @@ export class ProductPageComponent implements OnInit {
     this._setPageProduct();
   }
 
+  public displaySideModal(): void {
+    this._modalService.openSideModal();
+  }
 
   /******************* METHODS PRIVATE *******************/
 

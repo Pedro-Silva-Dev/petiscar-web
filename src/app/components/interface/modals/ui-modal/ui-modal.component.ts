@@ -29,7 +29,7 @@ export class UiModalComponent implements OnInit {
     }
 
     private _setModalEvent(): void {
-        this.uiModalService.getEvent().subscribe(value => {
+        this.uiModalService.getModalEvent().subscribe(value => {
             this.close.set(!value);
             setTimeout(() => {
                 this.modal.set(value);

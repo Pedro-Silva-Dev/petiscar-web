@@ -1,22 +1,22 @@
 <div class="flex">
   @if (isUserAuth()) {
     <div class="bg-slate-100 h-screen p-5 pt-8 relative duration-500 {{open() ? 'w-48' : 'w-[5rem]'}}">
-      <div class="inline-flex justify-center">
-        <i-feather (click)="openSidebar()" ui-icon [name]="principalSidebar.icon" class="cursor-pointer *:duration-500 {{!open() ? '*:rotate-[360deg]' : ''}}" data-tip="hello"></i-feather>
-        <h1 (click)="openSidebar()" class="text-2xl mt-0.5 ml-6 text-primary font-medium cursor-pointer duration-500 {{open() ? 'translate-0 scale-1' : '-translate-x-20 scale-0'}}">{{principalSidebar.name}}</h1>
+      <div (mouseover)="hover(principalSidebar, true)" (mouseout)="hover(principalSidebar, false)" class="inline-flex justify-center">
+        <i-feather (click)="openSidebar()" ui-icon [name]="principalSidebar.icon" class="cursor-pointer *:duration-500 {{principalSidebar.hover() ? '*:text-primary' : '*:text-slate-500'}} {{!open() ? '*:rotate-[360deg]' : '*:text-primary'}}" data-tip="hello"></i-feather>
+        <h1 (click)="openSidebar()" class="text-2xl mt-0.5 ml-6 text-primary font-medium cursor-pointer duration-500 {{principalSidebar.hover() ? '*:text-primary' : '*:text-slate-500'}} {{open() ? 'translate-0 scale-1' : '-translate-x-20 scale-0'}}">{{principalSidebar.name}}</h1>
       </div>
       <div class="inline-flex justify-center">
         <ul class="mt-10">
           @for (menu of sidebarList; track $index; let isLast = $last) {
               @if (isLast) {
-                  <li (click)="logout()" class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} flex mb-7}}">
-                    <i-feather ui-icon [name]="menu.icon" class="*:duration-500 {{!open() ? '*:rotate-[360deg] cursor-pointer hover:scale-125': ''}} "></i-feather>
-                    <span class="text-lg text-primary mt-0.5 ml-6 font-medium duration-500 {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}">{{menu.name}}</span>
+                  <li (click)="logout()" (mouseover)="hover(menu, true)" (mouseout)="hover(menu, false)" class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} flex mb-7}}">
+                    <i-feather ui-icon [name]="menu.icon" class="*:duration-500 {{menu.hover() ? '*:text-primary' : '*:text-slate-500'}} {{!open() ? '*:rotate-[360deg] cursor-pointer hover:scale-125': ''}} "></i-feather>
+                    <span class="text-lg mt-0.5 ml-6 font-medium duration-500 {{menu.hover() ? 'text-primary' : 'text-slate-500'}} {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}">{{menu.name}}</span>
                   </li>
               }@else {
-                <li (click)="redirectPage(menu)" class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} flex mb-7">
-                  <i-feather ui-icon [name]="menu.icon" class="*:duration-500 {{!open() ? '*:rotate-[360deg] cursor-pointer hover:scale-125': ''}} "></i-feather>
-                  <span class="text-lg text-primary mt-0.5 ml-6 font-medium duration-500 {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}">{{open() ? menu.name : ''}}</span>
+                <li (click)="redirectPage(menu)" (mouseover)="hover(menu, true)" (mouseout)="hover(menu, false)" class="{{open() ? 'cursor-pointer hover:scale-110' : ''}} flex mb-7">
+                  <i-feather ui-icon [name]="menu.icon" class="*:duration-500 {{menu.hover() ? '*:text-primary' : '*:text-slate-500'}} {{!open() ? '*:rotate-[360deg] cursor-pointer hover:scale-125': ''}} "></i-feather>
+                  <span class="text-lg mt-0.5 ml-6 font-medium duration-500 {{menu.hover() ? 'text-primary' : 'text-slate-500'}} {{open() ? 'translate-0 scale-1 ' : '-translate-x-20 scale-0'}}">{{open() ? menu.name : ''}}</span>
                 </li>
               }
           }
