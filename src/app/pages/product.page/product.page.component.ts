@@ -5,13 +5,21 @@ import { Pagination } from '../../shared/models/pagination.model';
 import { Product } from '../../models/store/product.model';
 import { UiTableComponent } from '../../components/interface/ui-table/ui-table.component';
 import { BehaviorSubject } from 'rxjs';
+import { UiPaginationComponent } from '../../components/interface/ui-pagination/ui-pagination.component';
+import { UiDropdownComponent } from '../../components/interface/ui-dropdown/ui-dropdown.component';
+import { UiButtonPrimaryDirective } from '../../shared/directives/buttons/ui-button-primary.directive';
+import { UiButtonIconComponent } from '../../components/forms/ui-button/ui-button-icon.component';
 
 @Component({
   selector: 'app-product.page',
   standalone: true,
   imports: [
     CommonModule,
-    UiTableComponent
+    UiTableComponent,
+    UiPaginationComponent,
+    UiDropdownComponent,
+    UiButtonPrimaryDirective,
+    UiButtonIconComponent
   ],
   templateUrl: './product.page.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
@@ -31,20 +39,25 @@ export class ProductPageComponent implements OnInit {
     this._setPageProduct();
   }
 
+  public nextPage(): void {
+    this.page++;
+    this._setPageProduct();
+  }
+
+  public previousPage(): void {
+    this.page--;
+    this._setPageProduct();
+  }
+
+
   /******************* METHODS PRIVATE *******************/
 
   private _setPageProduct(): void {
-    this.loadPageProductEvent$.next(true);
     const build = {page: this.page, size: this.size};
-    this._productService.getProductPage(build).subscribe(res => {
+    this._productService.getProductPage(build, this.loadPageProductEvent$).subscribe(res => {
       if(res.status == 200) {
         this.pagination = res.body;
         this.productList = res.body.content;
-        this.productList = this.productList.concat(res.body.content)
-        this.productList = this.productList.concat(res.body.content)
-        setTimeout(() => {
-          this.loadPageProductEvent$.next(false);
-        }, 2000);
       }
     });
   }

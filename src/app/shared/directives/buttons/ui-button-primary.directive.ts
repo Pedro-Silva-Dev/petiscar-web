@@ -1,7 +1,7 @@
 import { Directive, ElementRef, OnInit, inject } from '@angular/core';
 
 @Directive({
-  selector: 'button[ui-primary]',
+  selector: 'button[ui-primary],summary[ui-primary]',
   standalone: true,
 })
 export class UiButtonPrimaryDirective implements OnInit {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, WritableSignal, signal } from '@angular/core';
 import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-button-primary.directive';
 
 @Component({
@@ -15,15 +15,5 @@ import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-
 export class UiDropdownComponent {
 
     @Input() text: string = 'Dropdown';
-
-    public active: boolean = false;
-
-    public setDropdown(): void {
-        this.active = !this.active;
-    }
-
-    public closeDropdown(): void {
-        this.active = false;
-    }
 
 }

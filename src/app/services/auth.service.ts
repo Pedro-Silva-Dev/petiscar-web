@@ -70,8 +70,7 @@ export class AuthService extends BaseService {
     this._router.navigate([`/auth`]);
   }
 
-  public login(auth: Auth, eventComponent?: BehaviorSubject<boolean>): Observable<HttpResponse<AuthToken>> {
-    const msgError = `Não foi possível autenticar.`;
+  public login(auth: Auth, eventComponent?: BehaviorSubject<boolean>, msgError?: string): Observable<HttpResponse<AuthToken>> {
     const url = `/auth/signin.json`;
     return this.post(url, auth, eventComponent, msgError, null);
   }

@@ -1,28 +1,46 @@
 <div class="grid grid-cols-1 p-4">
-  <div>
+  <div class="flex justify-between">
     <h3 class="md:text-2xl sm:text-lg">Produtos</h3>
+    <div class="flex">
+      <button ui-primary>Novo</button>
+      <ui-button-icon class="ml-2"></ui-button-icon>
+    </div>
   </div>
   <div class="mt-4">
-    <ui-table [header]="false" [loadEvent$]="loadPageProductEvent$">
+    <ui-table [footer]="true" [loadEvent$]="loadPageProductEvent$">
       <ng-container thead>
         <tr>
           <th>Nome</th>
-          <th>Preço</th>
-          <th>Estoque</th>
-          <th>Descrição</th>
-          <th>Ações</th>
+          <th class="text-end">Preço</th>
+          <th class="text-end">Estoque</th>
+          <th class="text-center hidden sm:table-cell">Descrição</th>
+          <th class="text-center">Ações</th>
         </tr>
       </ng-container>
       <ng-container tbody>
         @for (product of productList; track $index) {
           <tr>
-            <td>{{product.name}}</td>
-            <td>{{product.price}}</td>
-            <td>{{product.stock}}</td>
-            <td>{{product.description}}</td>
-            <td>ACOES</td>
+            <td class="truncate max-w-28">{{product.name}}</td>
+            <td class="text-end">{{'R$ '+product.price}}</td>
+            <td class="text-end">{{product.stock?.toLocaleString('pt-Br')}}</td>
+            <td class="text-center truncate max-w-28 hidden sm:table-cell">{{product.description}}</td>
+            <td class="text-center">
+              <ui-dropdown text="Opções">
+                <<ng-container link>
+                  <li><a href="javascript:void(0)">Editar</a></li>
+                </ng-container>
+              </ui-dropdown>
+            </td>
           </tr>
         }
       </ng-container>
+      @if(!(loadPageProductEvent$ | async) && productList?.length > size) {
+        <ng-container footer>
+          <ui-pagination class="p-4 w-full *:flex *:justify-center"
+            [pagination]="pagination"
+            (nextPageEvent$)="nextPage()" (previousPageEvent$)="previousPage()"
+            />
+        </ng-container>
+      }
     </ui-table>
 </div>

@@ -8,4 +8,7 @@ export enum UI_ICON {
   DELIVERY = `truck`,
   USER = `user`,
   LOG_OUT = `log-out`,
+  ARROW_LEFT = `arrow-left`,
+  ARROW_RIGHT = `arrow-right`,
+  SEARCH = `search`,
 }

@@ -1,12 +1,6 @@
-<div class="relative">
-    <button ui-primary (click)="setDropdown()" (focusout)="closeDropdown()" class="flex items-center">
-        {{text}}
-        <svg class="w-4 h-4 ml-1" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
-        </svg>
-    </button>
-    <div class=" {{active ? '' : 'hidden'}} ui-dropdown bg-white inline border border-gray-300 rounded shadow-md absolute *:block *:text-sm *:text-gray-500 *:px-3 *:py-1 *:bg-white  *:min-w-20 *:max-w-60 *:overflow-hidden">
-        <ng-content class="" select="[link]"></ng-content>
-    </div>
-</div>
-
+<details class="dropdown">
+    <summary ui-primary class="m-1 btn">{{text}}</summary>
+    <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+        <ng-content select="[link]"></ng-content>
+    </ul>
+</details>
