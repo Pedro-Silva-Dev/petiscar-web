@@ -13,11 +13,11 @@ import { Unsubscribable } from 'rxjs';
     FeatherModule,
   ],
   template: `
-  <ng-container *ngIf="isOpen()">
+  @if(isOpen()) {
     <div class="fixed z-99 top-0 left-0 h-full w-full fade bg-slate-700/[.30]">
       <div class="card fixed inset-y-0 -right-12 mt-1.5 w-96 h-[99%] bg-slate-50 shadow-xl rounded-xl duration-300 opacity-0  {{animationStart() ? 'opacity-100 -translate-x-14' : ''}} {{animationOut() ? 'opacity-0 translate-x-14' : '' }}">
         <div class="flex justify-between items-center">
-          <h2 class="card-title p-4">{{title}}</h2>  
+          <h3 class="text-xl pr-4 pl-4 pt-4 md:text-2xl sm:text-lg">{{title}}</h3>  
           <i-feather (click)="closeModal()" class="mr-2 *:w-[1.5rem] *:h-[1.5rem] text-slate-600 cursor-pointer hover:*:text-primary" [name]="icon"></i-feather>
         </div>
           <div class="card-body">
@@ -28,7 +28,7 @@ import { Unsubscribable } from 'rxjs';
         </div>
       </div>
     </div>
-  </ng-container>
+  }
   `,
   styles: `
     :host {

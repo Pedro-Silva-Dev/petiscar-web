@@ -2,12 +2,12 @@
   <div class="flex justify-between">
     <h3 class="md:text-2xl sm:text-lg">Produtos</h3>
     <div class="flex">
-      <button ui-primary>Novo</button>
-      <ui-button-icon (click)="displaySideModal()" [loadAction]="isLoadingButton" class="ml-2"></ui-button-icon>
+      <button ui-primary (click)="displayModalCreateProduct(null)">Novo</button>
+      <ui-button-icon (click)="displaySideModal()" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon>
     </div>
   </div>
   <div class="mt-4">
-    <ui-table [footer]="true" [loadEvent$]="loadPageProductEvent$">
+    <ui-table [footer]="true" [empty]="true" [loadEvent$]="loadPageProductEvent$">
       <ng-container thead>
         <tr>
           <th>Nome</th>
@@ -27,13 +27,18 @@
             <td class="text-center">
               <ui-dropdown text="Opções">
                 <<ng-container link>
-                  <li><a href="javascript:void(0)">Editar</a></li>
+                  <li><a (click)="displayModalCreateProduct(product)" href="javascript:void(0)">Editar</a></li>
                 </ng-container>
               </ui-dropdown>
             </td>
           </tr>
-        }
+        } 
       </ng-container>
+      @if(!productList?.length) {
+        <ng-container empty>
+          <app-ui-alert-info/>
+        </ng-container>
+      }
       @if(!(loadPageProductEvent$ | async) && productList?.length > size) {
         <ng-container footer>
           <ui-pagination class="p-4 w-full *:flex *:justify-center"
@@ -45,4 +50,14 @@
     </ui-table>
 </div>
 
-<app-ui-modal-side></app-ui-modal-side>
+<app-filter-page-product
+  (searchEvent$)="search($event)"
+/>
+
+@if (isModalProductForm()) {
+  <app-create-product
+  [product]="productSelected"
+  (finishEvent$)="refresh()" (close)="isModalProductForm()"
+/>
+}
+

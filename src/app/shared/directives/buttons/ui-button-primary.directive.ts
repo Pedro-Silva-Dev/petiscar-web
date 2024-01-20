@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit, inject } from '@angular/core';
 
 @Directive({
   selector: 'button[ui-primary],summary[ui-primary]',
@@ -15,6 +15,8 @@ export class UiButtonPrimaryDirective implements OnInit {
   private _setConfigElement(): void {
     this._element.classList.add('btn', 'btn-sm', 'btn-outline', 'btn-primary', 'hover:!text-white');
   }
+
+
 
 
 }

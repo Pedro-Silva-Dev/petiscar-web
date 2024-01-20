@@ -1,11 +1,11 @@
-import { Directive, ElementRef, inject } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, inject } from '@angular/core';
 
 @Directive({
   selector: 'label[ui-label]',
   standalone: true,
 })
-export class UiLabelDirective { 
-  
+export class UiLabelDirective implements OnInit { 
+
   private _element = inject(ElementRef).nativeElement as HTMLElement;
 
   ngOnInit(): void {
@@ -13,7 +13,7 @@ export class UiLabelDirective {
   } 
 
   private _setConfigElement(): void {
-    this._element.classList.add('label', 'text-sm');
+    this._element.classList.add('label', 'block', 'text-sm');
   }
 
 }

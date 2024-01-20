@@ -25,4 +25,7 @@
             <ng-content select="[footer]"></ng-content>
         </ng-container>
     }
+    @if(empty) {
+        <ng-content select="[empty]"></ng-content>
+    }
 </ui-card>

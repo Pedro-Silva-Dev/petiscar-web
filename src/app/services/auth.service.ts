@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Auth } from '../models/public/auth.model';
 import { BaseService } from '../shared/services/base.service';
-import { Inject, Injectable, afterNextRender, inject } from '@angular/core';
+import { Inject, Injectable, WritableSignal, afterNextRender, inject } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { AuthToken } from '../models/public/auth-token.model';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
@@ -70,7 +70,7 @@ export class AuthService extends BaseService {
     this._router.navigate([`/auth`]);
   }
 
-  public login(auth: Auth, eventComponent?: BehaviorSubject<boolean>, msgError?: string): Observable<HttpResponse<AuthToken>> {
+  public login(auth: Auth, eventComponent?: WritableSignal<boolean>, msgError?: string): Observable<HttpResponse<AuthToken>> {
     const url = `/auth/signin.json`;
     return this.post(url, auth, eventComponent, msgError, null);
   }

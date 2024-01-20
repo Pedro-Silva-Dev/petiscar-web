@@ -1,5 +1,6 @@
+import { UiInputDirective } from './../../shared/directives/forms/ui-input.directive';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, type OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, type OnInit, signal, TemplateRef } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Pagination } from '../../shared/models/pagination.model';
 import { Product } from '../../models/store/product.model';
@@ -11,6 +12,15 @@ import { UiButtonPrimaryDirective } from '../../shared/directives/buttons/ui-but
 import { UiButtonIconComponent } from '../../components/forms/ui-button/ui-button-icon.component';
 import { UiModalSideComponent } from '../../components/interface/modals/ui-modal-side/ui-modal-side.component';
 import { UiModalService } from '../../components/interface/modals/ui-modal.service';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UiLabelDirective } from '../../shared/directives/forms/ui-label.directive';
+import { UiSelectDirective } from '../../shared/directives/forms/ui-select.directive';
+import { NgxMaskDirective } from 'ngx-mask';
+import { UiButtonSecondaryDirective } from '../../shared/directives/buttons/ui-button-secondary.directive';
+import { FilterPageProductComponent } from './filter-page-product/filter-page-product.component';
+import { UiAlertModule } from '../../components/interface/alerts/ui-alert.module';
+import { UiModalComponent } from '../../components/interface/modals/ui-modal/ui-modal.component';
+import { CreateProductComponent } from './create-product/create-product.component';
 
 @Component({
   selector: 'app-product.page',
@@ -22,7 +32,17 @@ import { UiModalService } from '../../components/interface/modals/ui-modal.servi
     UiDropdownComponent,
     UiButtonPrimaryDirective,
     UiButtonIconComponent,
-    UiModalSideComponent
+    UiModalSideComponent,
+    ReactiveFormsModule,
+    UiInputDirective,
+    UiLabelDirective,
+    UiSelectDirective,
+    NgxMaskDirective,
+    UiButtonSecondaryDirective,
+    FilterPageProductComponent,
+    UiAlertModule,
+    CreateProductComponent
+    
   ],
   templateUrl: './product.page.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
@@ -31,6 +51,7 @@ export class ProductPageComponent implements OnInit {
 
   private _productService: ProductService = inject(ProductService);
   private _modalService: UiModalService = inject(UiModalService);
+  private _filterForm: any = {};
 
   protected loadPageProductEvent$ = new BehaviorSubject(false);
 
@@ -39,6 +60,9 @@ export class ProductPageComponent implements OnInit {
   protected pagination: Pagination<Product>;
   protected productList: Product[] = [];
   protected isLoadingButton = signal(false);
+  protected isModalProductForm = signal(false);
+  protected productSelected: Product = null;
+   
 
   ngOnInit(): void { 
     this._setPageProduct();
@@ -58,10 +82,33 @@ export class ProductPageComponent implements OnInit {
     this._modalService.openSideModal();
   }
 
+  public closeSideModal(): void {
+    this._modalService.closeSideModal();
+  }
+
+  public search(filterForm: any): void {
+    this._filterForm = filterForm;
+    this.page = 0;
+    this._setPageProduct();
+    this.closeSideModal();
+  }
+
+  public displayModalCreateProduct(product: Product): void {
+    this.productSelected = product;
+    this.isModalProductForm.set(true);
+    setTimeout(() => {
+      this._modalService.openModal();
+    }, 0);
+  }
+
+  public refresh(): void {
+    this._setPageProduct();
+  }
+
   /******************* METHODS PRIVATE *******************/
 
   private _setPageProduct(): void {
-    const build = {page: this.page, size: this.size};
+    const build = {...this._filterForm, page: this.page, size: this.size};
     this._productService.getProductPage(build, this.loadPageProductEvent$).subscribe(res => {
       if(res.status == 200) {
         this.pagination = res.body;

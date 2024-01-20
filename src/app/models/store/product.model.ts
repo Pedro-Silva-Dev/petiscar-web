@@ -5,4 +5,5 @@ export interface Product {
   price: number;
   stock: number;
   active: boolean; 
+  categoryId?: number; 
 }

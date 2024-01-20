@@ -1,0 +1,51 @@
+<app-ui-modal titleText="Formulário de Produto" [close]="close">
+  <ng-container body>
+    <form [formGroup]="productForm">
+      <div class="mb-2">
+        <label ui-label for="name">Nome<small ui-danger-form>*</small></label>
+        <input ui-input type="text" id="name" formControlName="name" autocomplete="off" placeholder="Digite o nome do produto">
+        @if(productForm.get('name').hasError('maxlength')) {
+          <small ui-danger-form>Nome deve ter no máximo 300 characters.</small>
+        }
+        @if(productForm.get('name').dirty && productForm.get('name').hasError('required')) {
+          <small ui-danger-form>Nome é obrigatório.</small>
+        }
+      </div>
+      <div class="grid {{productForm?.value?.id ? 'grid-cols-3' : 'grid-cols-2'}} gap-4">
+        <div class="mb-2">
+          <label ui-label for="price">Preço<small ui-danger-form>*</small></label>
+          <input ui-input type="text" prefix="R$ "mask="separator" [decimalMarker]="','" [allowNegativeNumbers]="true"  [validation]="true" id="price" formControlName="price" autocomplete="off" placeholder="Digite o preço do produto">
+          @if(productForm.get('price').dirty && productForm.get('price').hasError('required')) {
+            <small ui-danger-form>Preço é obrigatório.</small>
+          }
+        </div>
+        <div class="mb-2">
+          <label ui-label for="priceMax">Estoque<small ui-danger-form>*</small></label>
+          <input ui-input  mask="separator" [allowNegativeNumbers]="true" [validation]="true" type="text" id="stock" formControlName="stock" autocomplete="off" placeholder="Digite a quantidade disponível do produto">
+          @if(productForm.get('stock').dirty && productForm.get('stock').hasError('required')) {
+            <small ui-danger-form>Estoque é obrigatório.</small>
+          }
+        </div>
+        @if(productForm?.value?.id) {
+          <div class="mb-2">
+            <label ui-label for="active">Status</label>
+            <select  ui-select formControlName="active" id="active">
+              <option [value]="true">Habilitado</option>
+              <option [value]="false">Desabilitado</option>
+            </select>
+          </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label ui-label for="description">Descrição</label>
+        <textarea ui-textarea name="" id="description"></textarea>
+      </div>
+    </form>
+  </ng-container>
+  <ng-container footer>
+    <div class="flex justify-end">
+      <app-ui-button (clickEvent$)="save()" [text]="productForm?.value?.id ? 'Atualizar' : 'Cadastrar'" [disabled]="productForm?.invalid" class="mr-4" [loadAction]="loadLogin"/>
+      <button (click)="closeModal()" ui-secondary>Cancelar</button>
+    </div>
+  </ng-container>
+</app-ui-modal>

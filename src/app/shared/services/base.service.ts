@@ -1,6 +1,6 @@
 import { UiToastService } from './../../services/ui-toast.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { BehaviorSubject, Observable, throwError, take, tap, catchError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -36,30 +36,30 @@ export class BaseService {
     }
   }
 
-  protected post(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError?: string, build?: any): Observable<HttpResponse<any>> {    
-    eventComponent?.next(true);
+  protected post(url: string, data: any, eventComponent = signal(false), msgError?: string, build?: any): Observable<HttpResponse<any>> {    
+    eventComponent?.set(true);
     return this.http.post<any>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}`, data, { observe: 'response' }).pipe(catchError(
       (err: any) => {
         if(msgError) {
           this.toastrService.sendErrorMessage(msgError);
         }
-        eventComponent?.next(false);
+        eventComponent?.set(false);
         return throwError(() => err);
       }
-    )).pipe(take(1)).pipe(tap((_: any) => eventComponent?.next(false)));
+    )).pipe(take(1)).pipe(tap((_: any) => eventComponent?.set(false)));
   }
 
-  protected put(url: string, data: any, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<any>(false), msgError?: string, build?: any): Observable<HttpResponse<any>> {
-    eventComponent?.next(true);
+  protected put(url: string, data: any, eventComponent = signal(false), msgError?: string, build?: any): Observable<HttpResponse<any>> {
+    eventComponent?.set(true);
     return this.http.put<any>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}`, data, { observe: 'response' }).pipe(catchError(
       (err: any) => {
         if(msgError) {
           this.toastrService.sendErrorMessage(msgError);
         }
-        eventComponent?.next(false);
+        eventComponent?.set(false);
         return throwError(() => err);
       }
-    )).pipe(take(1)).pipe(tap((_: any) => eventComponent?.next(false)));
+    )).pipe(take(1)).pipe(tap((_: any) => eventComponent?.set(false)));
   }
 
   protected delete(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError?: string, build?: any): Observable<HttpResponse<any>> {
