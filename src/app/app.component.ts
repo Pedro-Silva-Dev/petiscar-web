@@ -3,6 +3,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { UiToastComponent } from './components/interface/ui-toast/ui-toast.component';
 import { UiSidebarComponent } from './components/interface/ui-sidebar/ui-sidebar.component';
+import { UiModalComponent } from './components/interface/modals/ui-modal/ui-modal.component';
+import { UiModalSideComponent } from './components/interface/modals/ui-modal-side/ui-modal-side.component';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,9 @@ import { UiSidebarComponent } from './components/interface/ui-sidebar/ui-sidebar
     CommonModule,
     RouterOutlet,
     UiToastComponent,
-    UiSidebarComponent
+    UiSidebarComponent,
+    UiModalComponent,
+    UiModalSideComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

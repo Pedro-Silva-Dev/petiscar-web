@@ -13,6 +13,6 @@ export class UiTextAreaDirective {
   } 
 
   private _setConfigElement(): void {
-    this._element.classList.add('textarea', 'textarea-bordered', 'w-full', 'ui-y-scroll', 'focus:outline-none');
+    this._element.classList.add('textarea', 'textarea-bordered', 'w-full', 'focus:outline-none');
   }
 }

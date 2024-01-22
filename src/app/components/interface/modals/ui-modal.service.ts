@@ -1,36 +1,37 @@
-import { Injectable } from '@angular/core';
+import { Injectable, TemplateRef } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { ModalConfig } from '../../../shared/models/modal-config.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UiModalService {
 
-  private _modalEvent$ = new Subject<boolean>();
-  private _modalSideEvent$ = new Subject<boolean>();
+  private _modalEvent$ = new Subject<ModalConfig>();
+  private _modalSideEvent$ = new Subject<ModalConfig>();
 
-  public getModalEvent(): Observable<boolean> {
+  public getModalEvent(): Observable<ModalConfig> {
     return this._modalEvent$.asObservable();
   }
 
-  public openModal(): void {
-    this._modalEvent$.next(true);
+  public openModal(config: ModalConfig): void {
+    this._modalEvent$.next(config);
   }
 
   public closeModal(): void {
-    this._modalEvent$.next(false);
+    this._modalEvent$.next(null);
   }
 
-  public getModaSidelEvent(): Observable<boolean> {
+  public getModaSidelEvent(): Observable<ModalConfig> {
     return this._modalSideEvent$.asObservable();
   }
 
-  public openSideModal(): void {
-    this._modalSideEvent$.next(true);
+  public openSideModal(config: ModalConfig): void {
+    this._modalSideEvent$.next(config);
   }
 
   public closeSideModal(): void {
-    this._modalSideEvent$.next(false);
+    this._modalSideEvent$.next(null);
   }
 
 }

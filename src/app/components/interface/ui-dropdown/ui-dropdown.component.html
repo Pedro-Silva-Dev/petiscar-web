@@ -1,6 +1,6 @@
-<details class="dropdown">
-    <summary ui-primary class="m-1 btn">{{text}}</summary>
-    <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+<div class="dropdown dropdown-end">
+    <summary tabindex="0" role="button" ui-primary class="m-1 btn">{{text}}</summary>
+    <ul class="p-2 shadow menu dropdown-content z-[990] bg-base-100 rounded-box w-52">
         <ng-content select="[link]"></ng-content>
     </ul>
-</details>
+</div>

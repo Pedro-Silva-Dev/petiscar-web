@@ -5,7 +5,7 @@
         </ng-container>
     }
     <ng-container body>
-        <div class="overflow-x-auto md:h-[40rem] h-[30rem]">
+        <div class="overflow-auto h-96 md:overflow-clip {{animationEvent() ? 'md:h-[30rem] 2xl:h-[40rem]' : 'md:h-auto'}} ">
             @if(!loadEvent()) {
                 <table class="table duration-300 {{animationEvent()  ? 'opacity-0' : 'opacity-1'}}">
                     <thead class="text-base">
@@ -19,6 +19,9 @@
                 <div class="skeleton w-full h-full duration-300 {{animationEvent() ? 'opacity-1' : 'opacity-0'}}"></div>
             }
         </div>
+        @if(empty) {
+            <ng-content select="[empty]"></ng-content>
+        }
     </ng-container>
     @if(footer) {
         <ng-container footer>

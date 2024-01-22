@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, Output, type OnInit, EventEmitter, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, Output, type OnInit, EventEmitter, signal, ViewContainerRef, ViewChild, TemplateRef } from '@angular/core';
 import { UiModalComponent } from '../../../components/interface/modals/ui-modal/ui-modal.component';
 import { NgxMaskDirective } from 'ngx-mask';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -41,20 +41,22 @@ export class CreateProductComponent implements OnInit {
   private _modalService: UiModalService = inject(UiModalService);
   private _productService: ProductService = inject(ProductService);
   private _toastService: UiToastService = inject(UiToastService);
+  private _view: ViewContainerRef = inject(ViewContainerRef);
+
+  @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
   @Output() finishEvent$ = new EventEmitter<Product>();
   
   @Input() product: Product;
+  @Input() component: any;
   @Input() close = signal(false);
 
   protected productForm: FormGroup;
   protected loadLogin = signal(false);
 
   ngOnInit(): void {
-    console.log(this.product);
-    
     this._createProductForm();
-   }
+  }
 
   public save(): void {
     if(this.productForm?.valid) {
@@ -96,7 +98,13 @@ export class CreateProductComponent implements OnInit {
   }
 
   private _updateProduct(): void {
-
+    this._productService.updateProduct(this.productForm?.value?.id, this.productForm.value, this.loadLogin).subscribe(res => {
+      if(res.status == 202) {
+        this._toastService.sendSuccessMessage(`Produto atualizado com sucesso!`);
+        this.finishEvent$.emit(res.body);
+        this.closeModal();
+      }
+    });
   }
 
 }

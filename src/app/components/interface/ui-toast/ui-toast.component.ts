@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { UiToastService } from '../../../services/ui-toast.service';
+import { UI_TOAST_TYPE } from '../../../shared/enums/ui-toast-type.enum';
 
 @Component({
   selector: 'ui-toast',
@@ -27,7 +28,7 @@ export class UiToastComponent implements OnInit {
 
   protected active = signal(false);
   protected disable = signal(true);
-  protected type = signal('alert-success');
+  protected type = signal(UI_TOAST_TYPE.SUCCESS);
   protected text = signal('Message sent successfully.');
  
   ngOnInit(): void {

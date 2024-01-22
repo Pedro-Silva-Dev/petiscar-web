@@ -2,8 +2,8 @@
   <div class="flex justify-between">
     <h3 class="md:text-2xl sm:text-lg">Produtos</h3>
     <div class="flex">
-      <button ui-primary (click)="displayModalCreateProduct(null)">Novo</button>
-      <ui-button-icon (click)="displaySideModal()" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon>
+      <button ui-primary (click)="displayModalCreateProduct(createProduct, null)">Novo</button>
+      <ui-button-icon (click)="displaySideModal(filterProduct)" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon>
     </div>
   </div>
   <div class="mt-4">
@@ -27,19 +27,19 @@
             <td class="text-center">
               <ui-dropdown text="Opções">
                 <<ng-container link>
-                  <li><a (click)="displayModalCreateProduct(product)" href="javascript:void(0)">Editar</a></li>
+                  <li><a (click)="displayModalCreateProduct(createProduct, product)" href="javascript:void(0)">Editar</a></li>
                 </ng-container>
               </ui-dropdown>
             </td>
           </tr>
         } 
       </ng-container>
-      @if(!productList?.length) {
+      @if(!productList?.length && !(this.loadPageProductEvent$ | async)) {
         <ng-container empty>
-          <app-ui-alert-info/>
+          <app-ui-alert-info class="mt-4"/>
         </ng-container>
       }
-      @if(!(loadPageProductEvent$ | async) && productList?.length > size) {
+      @if(!(loadPageProductEvent$ | async) && pagination?.totalElements > size) {
         <ng-container footer>
           <ui-pagination class="p-4 w-full *:flex *:justify-center"
             [pagination]="pagination"
@@ -50,14 +50,17 @@
     </ui-table>
 </div>
 
-<app-filter-page-product
-  (searchEvent$)="search($event)"
-/>
+<ng-template #filterProduct>
+  <app-filter-page-product
+    (searchEvent$)="search($event)"
+  />
+</ng-template>
 
-@if (isModalProductForm()) {
+<ng-template #createProduct>
   <app-create-product
-  [product]="productSelected"
-  (finishEvent$)="refresh()" (close)="isModalProductForm()"
-/>
-}
+    [product]="productSelected"
+    (finishEvent$)="refresh()"
+  />  
+</ng-template>
+
 

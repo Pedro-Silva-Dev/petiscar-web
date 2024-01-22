@@ -21,6 +21,8 @@ import { FilterPageProductComponent } from './filter-page-product/filter-page-pr
 import { UiAlertModule } from '../../components/interface/alerts/ui-alert.module';
 import { UiModalComponent } from '../../components/interface/modals/ui-modal/ui-modal.component';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { ModalConfig } from '../../shared/models/modal-config.model';
+import { MODAL_SIZE } from '../../shared/enums/modal-size.enum';
 
 @Component({
   selector: 'app-product.page',
@@ -60,7 +62,6 @@ export class ProductPageComponent implements OnInit {
   protected pagination: Pagination<Product>;
   protected productList: Product[] = [];
   protected isLoadingButton = signal(false);
-  protected isModalProductForm = signal(false);
   protected productSelected: Product = null;
    
 
@@ -78,8 +79,9 @@ export class ProductPageComponent implements OnInit {
     this._setPageProduct();
   }
 
-  public displaySideModal(): void {
-    this._modalService.openSideModal();
+  public displaySideModal(template: TemplateRef<any>): void {
+    const config: ModalConfig = {title: 'Pesquisar', size: MODAL_SIZE.MEDIUM, template};
+    this._modalService.openSideModal(config);
   }
 
   public closeSideModal(): void {
@@ -93,12 +95,10 @@ export class ProductPageComponent implements OnInit {
     this.closeSideModal();
   }
 
-  public displayModalCreateProduct(product: Product): void {
+  public displayModalCreateProduct(template: TemplateRef<any>, product: Product): void {
     this.productSelected = product;
-    this.isModalProductForm.set(true);
-    setTimeout(() => {
-      this._modalService.openModal();
-    }, 0);
+    const config: ModalConfig = {title: 'Pesquisar', size: MODAL_SIZE.MEDIUM, template};
+    this._modalService.openModal(config);
   }
 
   public refresh(): void {
