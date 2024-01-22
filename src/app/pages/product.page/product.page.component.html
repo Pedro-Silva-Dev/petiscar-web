@@ -52,6 +52,7 @@
 
 <ng-template #filterProduct>
   <app-filter-page-product
+    [filter]="filterForm"
     (searchEvent$)="search($event)"
   />
 </ng-template>

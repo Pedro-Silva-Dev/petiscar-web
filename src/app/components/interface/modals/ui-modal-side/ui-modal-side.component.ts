@@ -13,7 +13,7 @@ import { Unsubscribable } from 'rxjs';
     FeatherModule,
   ],
   template: `
-    <dialog class="modal {{isOpen() ? 'modal-open' : ''}}">
+    <dialog class="modal {{isOpen() ? 'modal-open' : 'hidden'}}">
         <div class="modal-box p-0 modal-side w-96">
             <div class="border-b-[1px] border-b-slate-600/20">
                 <div class="p-4 flex justify-between">
@@ -53,7 +53,6 @@ export class UiModalSideComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
       this._unsubscribe?.unsubscribe();
     } 
-
 
     public closeModal(): void {
       this._uiModalService.closeSideModal();

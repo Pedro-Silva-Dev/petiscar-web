@@ -19,7 +19,9 @@ export class UiModalService {
   }
 
   public closeModal(): void {
-    this._modalEvent$.next(null);
+    setTimeout(() => {
+      this._modalEvent$.next(null);
+    }, 0);
   }
 
   public getModaSidelEvent(): Observable<ModalConfig> {
@@ -31,7 +33,9 @@ export class UiModalService {
   }
 
   public closeSideModal(): void {
-    this._modalSideEvent$.next(null);
+    setTimeout(() => {
+      this._modalSideEvent$.next(null);
+    }, 0);
   }
 
 }

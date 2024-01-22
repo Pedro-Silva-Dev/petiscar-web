@@ -53,10 +53,10 @@ export class ProductPageComponent implements OnInit {
 
   private _productService: ProductService = inject(ProductService);
   private _modalService: UiModalService = inject(UiModalService);
-  private _filterForm: any = {};
-
+  
   protected loadPageProductEvent$ = new BehaviorSubject(false);
 
+  protected filterForm: any = {};
   protected page: number = 0;
   protected size: number = 12;
   protected pagination: Pagination<Product>;
@@ -89,7 +89,7 @@ export class ProductPageComponent implements OnInit {
   }
 
   public search(filterForm: any): void {
-    this._filterForm = filterForm;
+    this.filterForm = filterForm;
     this.page = 0;
     this._setPageProduct();
     this.closeSideModal();
@@ -108,7 +108,7 @@ export class ProductPageComponent implements OnInit {
   /******************* METHODS PRIVATE *******************/
 
   private _setPageProduct(): void {
-    const build = {...this._filterForm, page: this.page, size: this.size};
+    const build = {...this.filterForm, page: this.page, size: this.size};
     this._productService.getProductPage(build, this.loadPageProductEvent$).subscribe(res => {
       if(res.status == 200) {
         this.pagination = res.body;
