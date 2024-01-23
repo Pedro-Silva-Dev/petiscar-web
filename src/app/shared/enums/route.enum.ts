@@ -1,6 +1,7 @@
 export enum ROUTE {
   INDEX = '',
   AUTH = 'auth',
-  PRODUCT = 'produtos'
+  PRODUCT = 'produtos',
+  CATEGORY = 'category',
 
 }

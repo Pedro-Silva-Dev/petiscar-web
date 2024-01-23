@@ -24,6 +24,8 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { ModalConfig } from '../../shared/models/modal-config.model';
 import { MODAL_SIZE } from '../../shared/enums/modal-size.enum';
 import { UiBadgeModule } from '../../shared/directives/interface/ui-badge/ui-badge.module';
+import { UiButtonModule } from '../../shared/directives/buttons/ui-button.module';
+import { UiFormDirectiveModule } from '../../shared/directives/forms/ui-form-directive.module';
 
 @Component({
   selector: 'app-product.page',
@@ -31,20 +33,17 @@ import { UiBadgeModule } from '../../shared/directives/interface/ui-badge/ui-bad
   imports: [
     CommonModule,
     UiTableComponent,
+    CreateProductComponent,
     UiPaginationComponent,
     UiDropdownComponent,
-    UiButtonPrimaryDirective,
     UiButtonIconComponent,
     UiModalSideComponent,
-    ReactiveFormsModule,
-    UiInputDirective,
-    UiLabelDirective,
-    UiSelectDirective,
-    NgxMaskDirective,
-    UiButtonSecondaryDirective,
     FilterPageProductComponent,
+    NgxMaskDirective,
+    UiFormDirectiveModule,
+    UiButtonModule,
+    ReactiveFormsModule,
     UiAlertModule,
-    CreateProductComponent,
     UiBadgeModule
     
   ],

@@ -1,0 +1,49 @@
+<div class="grid grid-cols-1 p-4">
+  <div class="flex justify-between">
+    <h3 class="md:text-2xl sm:text-lg">Categorias</h3>
+    <div class="flex">
+      <!-- <button ui-primary (click)="displayModalCreateCategory(createProduct, null)">Novo</button>
+      <ui-button-icon (click)="displaySideModal(filterProduct)" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon> -->
+    </div>
+  </div>
+  <div class="mt-4">
+    <ui-table [footer]="true" [empty]="true" [loadEvent$]="loadPageCategoryEvent$">
+      <ng-container thead>
+        <tr>
+          <th>Nome</th>
+          <th class="text-center">Ações</th>
+        </tr>
+      </ng-container>
+      <ng-container tbody>
+        @for (product of categoryList; track $index) {
+          <tr>
+            <td class="truncate max-w-28">{{product.name}} 
+              @if (!product.active) {
+                <span ui-badge-danger>Desabilitado</span>
+              }
+            </td>
+            <td class="text-center">
+              <ui-dropdown text="Opções">
+                <<ng-container link>
+                  <!-- <li><a (click)="displayModalCreateProduct(createProduct, product)" href="javascript:void(0)">Editar</a></li> -->
+                </ng-container>
+              </ui-dropdown>
+            </td>
+          </tr>
+        } 
+      </ng-container>
+      @if(!categoryList?.length && !(this.loadPageCategoryEvent$ | async)) {
+        <ng-container empty>
+          <app-ui-alert-info class="mt-4"/>
+        </ng-container>
+      }
+      @if(!(loadPageCategoryEvent$ | async) && pagination?.totalElements > size) {
+        <ng-container footer>
+          <ui-pagination class="p-4 w-full *:flex *:justify-center"
+            [pagination]="pagination"
+            (nextPageEvent$)="nextPage()" (previousPageEvent$)="previousPage()"
+            />
+        </ng-container>
+      }
+    </ui-table>
+</div>

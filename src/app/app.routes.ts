@@ -5,9 +5,11 @@ import { authGuard } from './shared/guards/auth.guard';
 import { isAuthUserGuard } from './shared/guards/is-auth-user.guard';
 import { ProductPageComponent } from './pages/product.page/product.page.component';
 import { ROUTE } from './shared/enums/route.enum';
+import { CategoryPageComponent } from './pages/category.page/category.page.component';
 
 export const routes: Routes = [
   {path: ROUTE.INDEX, redirectTo: ROUTE.AUTH, pathMatch: 'full'},
   {path: ROUTE.AUTH, component: AuthPageComponent, canActivate: [isAuthUserGuard]},
   {path: ROUTE.PRODUCT, component: ProductPageComponent, canActivate: [authGuard]},
+  {path: ROUTE.CATEGORY, component: CategoryPageComponent, canActivate: [authGuard]},
 ];
