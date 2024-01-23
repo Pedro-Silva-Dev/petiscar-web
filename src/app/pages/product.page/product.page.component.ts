@@ -23,6 +23,7 @@ import { UiModalComponent } from '../../components/interface/modals/ui-modal/ui-
 import { CreateProductComponent } from './create-product/create-product.component';
 import { ModalConfig } from '../../shared/models/modal-config.model';
 import { MODAL_SIZE } from '../../shared/enums/modal-size.enum';
+import { UiBadgeModule } from '../../shared/directives/interface/ui-badge/ui-badge.module';
 
 @Component({
   selector: 'app-product.page',
@@ -43,7 +44,8 @@ import { MODAL_SIZE } from '../../shared/enums/modal-size.enum';
     UiButtonSecondaryDirective,
     FilterPageProductComponent,
     UiAlertModule,
-    CreateProductComponent
+    CreateProductComponent,
+    UiBadgeModule
     
   ],
   templateUrl: './product.page.component.html',

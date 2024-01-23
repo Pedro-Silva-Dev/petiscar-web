@@ -14,7 +14,7 @@ import { Unsubscribable } from 'rxjs';
   ],
   template: `
     <dialog class="modal {{isOpen() ? 'modal-open' : 'hidden'}}">
-        <div class="modal-box p-0 modal-side w-96">
+        <div class="modal-box p-0 modal-side w-72 md:w-96">
             <div class="border-b-[1px] border-b-slate-600/20">
                 <div class="p-4 flex justify-between">
                     <h3 class="text-xl">{{title}}</h3>

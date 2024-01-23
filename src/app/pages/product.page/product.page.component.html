@@ -20,7 +20,11 @@
       <ng-container tbody>
         @for (product of productList; track $index) {
           <tr>
-            <td class="truncate max-w-28">{{product.name}}</td>
+            <td class="truncate max-w-28">{{product.name}} 
+              @if (!product.active) {
+                <span ui-badge-danger>Desabilitado</span>
+              }
+            </td>
             <td class="text-end">{{'R$ '+product.price}}</td>
             <td class="text-end">{{product.stock?.toLocaleString('pt-Br')}}</td>
             <td class="text-center truncate max-w-28 hidden sm:table-cell">{{product.description}}</td>
