@@ -2,6 +2,7 @@ export enum ROUTE {
   INDEX = '',
   AUTH = 'auth',
   PRODUCT = 'produtos',
-  CATEGORY = 'category',
+  CATEGORY = 'categorias',
+  PROMOTION = 'promocoes',
 
 }

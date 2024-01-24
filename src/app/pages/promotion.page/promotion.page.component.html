@@ -1,0 +1,71 @@
+<div class="grid grid-cols-1 p-4">
+  <div class="flex justify-between">
+    <h3 class="md:text-2xl sm:text-lg">Promoções</h3>
+    <div class="flex">
+      <button ui-primary (click)="displayModalCreatePromotion(createPromotion, null)">Novo</button>
+      <ui-button-icon (click)="displaySideModal(filterPromotion)" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon>
+    </div>
+  </div>
+  <div class="mt-4">
+    <ui-table [footer]="true" [empty]="true" [loadEvent$]="loadPagePromotionEvent$">
+      <ng-container thead>
+        <tr>
+          <th>Nome</th>
+          <th class="text-end">Desconto</th>
+          <th class="text-center">Data Inicio</th>
+          <th class="text-center">Data Fim</th>
+          <th class="text-center hidden sm:table-cell">Observação</th>
+          <th class="text-center">Ações</th>
+        </tr>
+      </ng-container>
+      <ng-container tbody>
+        @for (promotion of promotionList; track $index) {
+          <tr>
+            <td class="truncate max-w-28">{{promotion.name}} 
+              @if (!promotion.active) {
+                <span ui-badge-danger>Desabilitado</span>
+              }
+            </td>
+            <td class="text-end">{{promotion?.discount}}%</td>
+            <td class="text-end">{{promotion.dhi | date: 'dd/mm/yyyy'}}</td>
+            <td class="text-end">{{promotion.dhf | date: 'dd/mm/yyyy'}}</td>
+            <td class="text-center truncate max-w-28 hidden sm:table-cell">{{promotion.description}}</td>
+            <td class="text-center">
+              <ui-dropdown text="Opções">
+                <<ng-container link>
+                  <li><a (click)="displayModalCreatePromotion(createPromotion, promotion)" href="javascript:void(0)">Editar</a></li>
+                </ng-container>
+              </ui-dropdown>
+            </td>
+          </tr>
+        } 
+      </ng-container>
+      @if(!promotionList?.length && !(this.loadPagePromotionEvent$ | async)) {
+        <ng-container empty>
+          <app-ui-alert-info class="mt-4"/>
+        </ng-container>
+      }
+      @if(!(loadPagePromotionEvent$ | async) && pagination?.totalElements > size) {
+        <ng-container footer>
+          <ui-pagination class="p-4 w-full *:flex *:justify-center"
+            [pagination]="pagination"
+            (nextPageEvent$)="nextPage()" (previousPageEvent$)="previousPage()"
+            />
+        </ng-container>
+      }
+    </ui-table>
+</div>
+
+<ng-template #filterPromotion>
+  <app-filter-page-promotion
+    [filter]="filterForm"
+    (searchEvent$)="search($event)"
+  />
+</ng-template>
+
+<ng-template #createPromotion>
+  <!-- <app-create-product
+    [product]="promotionSelected"
+    (finishEvent$)="refresh()"
+  />   -->
+</ng-template>

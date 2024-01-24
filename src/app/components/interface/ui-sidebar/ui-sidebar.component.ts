@@ -78,7 +78,7 @@ export class UiSidebarComponent implements OnInit, OnDestroy {
   }
 
   private _getMenuList(): UiSidebar[] {
-    const promotionMenu: UiSidebar = {name: 'Promoções', icon: UI_ICON.PROMOTION, roles: [], order: 3, link: ROUTE.PRODUCT, hover: signal(false)};
+    const promotionMenu: UiSidebar = {name: 'Promoções', icon: UI_ICON.PROMOTION, roles: [], order: 3, link: ROUTE.PROMOTION, hover: signal(false)};
     const productMenu: UiSidebar = {name: 'Produtos', icon: UI_ICON.PRODUCT, roles: [], order: 1, link: ROUTE.PRODUCT, hover: signal(false)};
     const categoryMenu: UiSidebar = {name: 'Categorias', icon: UI_ICON.CATEGORY, roles: [], order: 2, link: ROUTE.CATEGORY, hover: signal(false)};   
     const shopMenu: UiSidebar = {name: 'Compras', icon: UI_ICON.SHOP, roles: [], order: 4, link: ROUTE.PRODUCT, hover: signal(false)};
