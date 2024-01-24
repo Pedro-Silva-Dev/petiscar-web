@@ -72,7 +72,11 @@ export class UiModalComponent implements OnInit {
             this.titleText = config.title;
             this.title = true;
           }
+          console.log(this.size);
           this.size = config.size;
+          console.log(config.size);
+          console.log(this.size);
+          
           this.isOpen.set(true);
           this.modal.createEmbeddedView(config.template);
         }else {

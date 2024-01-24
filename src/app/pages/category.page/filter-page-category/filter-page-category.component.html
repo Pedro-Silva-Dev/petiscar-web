@@ -1,0 +1,20 @@
+<ng-container body>
+  <form [formGroup]="filterForm">
+    <div class="mb-2">
+      <label ui-label for="name">Nome</label>
+      <input ui-input type="text" id="name" formControlName="name" autocomplete="off" placeholder="Digite o nome do produto">
+    </div>
+    <div class="mb-2">
+      <label ui-label for="stock">Status</label>
+      <select  ui-select name="" id="">
+        <option [value]="null">Selecione um status</option>
+        <option [value]="true">Habilitado</option>
+        <option [value]="false">Desabilitado</option>
+      </select>
+    </div>
+    <div class="flex justify-between mt-6">
+      <button (click)="search()" ui-primary (submit)="search()" class="w-[45%]">Pesquisar</button>
+      <button (click)="clearFilters()" ui-secondary class="w-[45%]">Limpar</button>
+    </div>
+  </form>
+</ng-container>

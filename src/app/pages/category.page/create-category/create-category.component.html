@@ -1,0 +1,25 @@
+<form [formGroup]="categoryForm">
+  <div class="mb-2">
+    <label ui-label for="name">Nome<small ui-danger-form>*</small></label>
+    <input ui-input type="text" id="name" formControlName="name" autocomplete="off" placeholder="Digite o nome do produto">
+    @if(categoryForm.get('name').hasError('maxlength')) {
+      <small ui-danger-form>Nome deve ter no máximo 300 characters.</small>
+    }
+    @if(categoryForm.get('name').dirty && categoryForm.get('name').hasError('required')) {
+      <small ui-danger-form>Nome é obrigatório.</small>
+    }
+  </div>
+    @if(categoryForm?.value?.id) {
+      <div class="mb-2">
+        <label ui-label for="active">Status</label>
+        <select  ui-select formControlName="active" id="active">
+          <option [value]="true">Habilitado</option>
+          <option [value]="false">Desabilitado</option>
+        </select>
+      </div>
+    }
+</form>
+<div class="flex justify-end mt-4">
+  <app-ui-button (clickEvent$)="save()" [text]="categoryForm?.value?.id ? 'Atualizar' : 'Cadastrar'" [disabled]="categoryForm?.invalid" class="mr-4" [loadAction]="loadLogin"/>
+  <button (click)="closeModal()" ui-secondary>Cancelar</button>
+</div>

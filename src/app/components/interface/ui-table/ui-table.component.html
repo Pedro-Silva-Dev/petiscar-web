@@ -5,7 +5,7 @@
         </ng-container>
     }
     <ng-container body>
-        <div class="overflow-auto h-96 md:overflow-clip {{animationEvent() ? 'md:h-[30rem] 2xl:h-[40rem]' : 'md:h-auto'}} ">
+        <div class="overflow-auto h-96 md:overflow-visible {{animationEvent() ? 'md:h-[30rem] 2xl:h-[40rem]' : 'md:h-auto'}} ">
             @if(!loadEvent()) {
                 <table class="table duration-300 {{animationEvent()  ? 'opacity-0' : 'opacity-1'}}">
                     <thead class="text-base">

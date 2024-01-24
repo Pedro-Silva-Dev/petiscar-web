@@ -16,6 +16,8 @@ import { Category } from '../../models/store/category.model';
 import { Pagination } from '../../shared/models/pagination.model';
 import { ModalConfig } from '../../shared/models/modal-config.model';
 import { MODAL_SIZE } from '../../shared/enums/modal-size.enum';
+import { FilterPageCategoryComponent } from './filter-page-category/filter-page-category.component';
+import { CreateCategoryComponent } from './create-category/create-category.component';
 
 @Component({
   selector: 'app-category.page',
@@ -30,8 +32,9 @@ import { MODAL_SIZE } from '../../shared/enums/modal-size.enum';
     UiButtonModule,
     ReactiveFormsModule,
     UiAlertModule,
-    UiBadgeModule
-
+    UiBadgeModule,
+    FilterPageCategoryComponent,
+    CreateCategoryComponent
   ],
   templateUrl: './category.page.component.html',
   styles: `
@@ -71,7 +74,7 @@ export class CategoryPageComponent implements OnInit {
   }
 
   public displaySideModal(template: TemplateRef<any>): void {
-    const config: ModalConfig = {title: 'Pesquisar', size: MODAL_SIZE.MEDIUM, template};
+    const config: ModalConfig = {title: 'Pesquisar', size: MODAL_SIZE.SMALL, template};
     this._modalService.openSideModal(config);
   }
 
@@ -88,7 +91,7 @@ export class CategoryPageComponent implements OnInit {
 
   public displayModalCreateCategory(template: TemplateRef<any>, category: Category): void {
     this.categorySelected = category;
-    const config: ModalConfig = {title: 'Pesquisar', size: MODAL_SIZE.MEDIUM, template};
+    const config: ModalConfig = {title: 'Pesquisar', size: MODAL_SIZE.SMALL, template};
     this._modalService.openModal(config);
   }
 

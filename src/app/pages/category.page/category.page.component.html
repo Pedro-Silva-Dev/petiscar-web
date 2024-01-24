@@ -2,8 +2,8 @@
   <div class="flex justify-between">
     <h3 class="md:text-2xl sm:text-lg">Categorias</h3>
     <div class="flex">
-      <!-- <button ui-primary (click)="displayModalCreateCategory(createProduct, null)">Novo</button>
-      <ui-button-icon (click)="displaySideModal(filterProduct)" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon> -->
+      <button ui-primary (click)="displayModalCreateCategory(createCategory, null)">Novo</button>
+      <ui-button-icon (click)="displaySideModal(filterCategory)" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon>
     </div>
   </div>
   <div class="mt-4">
@@ -15,17 +15,17 @@
         </tr>
       </ng-container>
       <ng-container tbody>
-        @for (product of categoryList; track $index) {
+        @for (category of categoryList; track $index) {
           <tr>
-            <td class="truncate max-w-28">{{product.name}} 
-              @if (!product.active) {
+            <td class="truncate max-w-28">{{category.name}} 
+              @if (!category.active) {
                 <span ui-badge-danger>Desabilitado</span>
               }
             </td>
             <td class="text-center">
               <ui-dropdown text="Opções">
                 <<ng-container link>
-                  <!-- <li><a (click)="displayModalCreateProduct(createProduct, product)" href="javascript:void(0)">Editar</a></li> -->
+                  <li><a (click)="displayModalCreateCategory(createCategory, category)" href="javascript:void(0)">Editar</a></li>
                 </ng-container>
               </ui-dropdown>
             </td>
@@ -47,3 +47,18 @@
       }
     </ui-table>
 </div>
+
+<ng-template #filterCategory>
+  <app-filter-page-category
+    [filter]="filterForm"
+    (searchEvent$)="search($event)"
+  />
+</ng-template>
+
+<ng-template #createCategory>
+  <app-create-category
+    [category]="categorySelected"
+    (finishEvent$)="refresh()"
+  />  
+</ng-template>
+
