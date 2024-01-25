@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, TemplateRef, type OnInit, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
@@ -108,7 +108,9 @@ export class PromotionPageComponent implements OnInit {
   /******************* METHODS PRIVATE *******************/
 
   private _setPagePromotion(): void {
-    const build = {...this.filterForm, page: this.page, size: this.size};
+    const dhi = this.filterForm?.value?.dhi ? formatDate(this.filterForm?.value?.dhi, 'dd/MM/yyyy', 'pt-Br') : null;
+    const dhf = this.filterForm?.value?.dhf ? formatDate(this.filterForm?.value?.dhf, 'dd/MM/yyyy', 'pt-Br') : null;
+    const build = {...this.filterForm, dhi, dhf,  page: this.page, size: this.size};
     this._promotionService.getPromotionPage(build, this.loadPagePromotionEvent$).subscribe(res => {
       if(res.status == 200) {
         this.pagination = res.body;

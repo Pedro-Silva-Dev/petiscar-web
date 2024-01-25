@@ -4,25 +4,28 @@
       <label ui-label for="name">Nome</label>
       <input ui-input type="text" id="name" formControlName="name" autocomplete="off" placeholder="Digite o nome do produto">
     </div>
-    <div class="mb-2">
-      <label ui-label for="minDiscount">Desconto Mínimo</label>
-      <input ui-input type="text" suffix="% "mask="separator" [decimalMarker]="','" [allowNegativeNumbers]="true" id="minDiscount" formControlName="minDiscount" autocomplete="off" placeholder="Digite o valor mínimo do desconto">
-    </div>
-    <div class="mb-2">
-      <label ui-label for="maxDiscount">Desconto Máximo</label>
-      <input ui-input type="text" suffix="% "mask="separator" [decimalMarker]="','" [allowNegativeNumbers]="true" id="maxDiscount" formControlName="maxDiscount" autocomplete="off" placeholder="Digite o valor máximo do desconto">
+    <div class="flex">
+      <div class="mb-2">
+        <label ui-label for="minDiscount">Desconto Mínimo</label>
+        <input ui-input type="text" suffix="%" mask="percent.2" [decimalMarker]="','" [allowNegativeNumbers]="true" id="minDiscount" formControlName="minDiscount" autocomplete="off" placeholder="Digite o valor mínimo do desconto">
+      </div>
+      <div class="mb-2 ml-4">
+        <label ui-label for="maxDiscount">Desconto Máximo</label>
+        <input ui-input type="text" suffix="%" mask="percent.2" [decimalMarker]="','" [allowNegativeNumbers]="true" id="maxDiscount" formControlName="maxDiscount" autocomplete="off" placeholder="Digite o valor máximo do desconto">
+      </div>
     </div>
     <div class="mb-2">
       <label ui-label for="dhi">Data Inicial</label>
-      <input ui-input mask="d0/M0/0000" [showMaskTyped]="true" type="text" id="dhi" formControlName="dhi" autocomplete="off" placeholder="Digite o valor do estoque disponível">
+      <input ui-input type="date" id="dhi" formControlName="dhi" autocomplete="off" placeholder="Digite a data inicial">
     </div>
     <div class="mb-2">
       <label ui-label for="dhf">Data Final</label>
-      <input ui-input mask="d0/M0/0000" [showMaskTyped]="true" type="text" id="dhf" formControlName="dhf" autocomplete="off" placeholder="Digite o valor do estoque disponível">
+      <input ui-input type="date" id="dhf" formControlName="dhf" autocomplete="off" placeholder="Digite a data final">
     </div>
+
     <div class="mb-2">
-      <label ui-label for="stock">Status</label>
-      <select  ui-select name="" id="">
+      <label ui-label for="active">Status</label>
+      <select  ui-select formControlName="active" id="active">
         <option [value]="null">Selecione um status</option>
         <option [value]="true">Habilitado</option>
         <option [value]="false">Desabilitado</option>
