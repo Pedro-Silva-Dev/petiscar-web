@@ -37,6 +37,9 @@
       <div class="mb-2">
         <label ui-label for="description">Descrição</label>
         <textarea ui-textarea formControlName="description" id="description" placeholder="Descreva o produto."></textarea>
+        @if(productForm.get('description').hasError('maxlength')) {
+          <small ui-danger-form>Nome deve ter no máximo 500 characters.</small>
+        }
       </div>
     </form>
     <div class="flex justify-end">

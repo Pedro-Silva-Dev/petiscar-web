@@ -41,9 +41,6 @@ export class CreateProductComponent implements OnInit {
   private _modalService: UiModalService = inject(UiModalService);
   private _productService: ProductService = inject(ProductService);
   private _toastService: UiToastService = inject(UiToastService);
-  private _view: ViewContainerRef = inject(ViewContainerRef);
-
-  @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
   @Output() finishEvent$ = new EventEmitter<Product>();
   

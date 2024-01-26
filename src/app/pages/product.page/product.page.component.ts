@@ -98,7 +98,8 @@ export class ProductPageComponent implements OnInit {
 
   public displayModalCreateProduct(template: TemplateRef<any>, product: Product): void {
     this.productSelected = product;
-    const config: ModalConfig = {title: 'Pesquisar', size: MODAL_SIZE.MEDIUM, template};
+    const title = product?.id ? 'Atualizar promoção' : 'Cadastrar promoção';
+    const config: ModalConfig = {title, size: MODAL_SIZE.MEDIUM, template};
     this._modalService.openModal(config);
   }
 

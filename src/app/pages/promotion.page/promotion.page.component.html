@@ -27,8 +27,8 @@
               }
             </td>
             <td class="text-end">{{promotion?.discount}}%</td>
-            <td class="text-center">{{promotion.dhi}}</td>
-            <td class="text-center">{{promotion.dhf}}</td>
+            <td class="text-center">{{promotion.dhi | date: 'dd/MM/yyyy'}}</td>
+            <td class="text-center">{{promotion.dhf | date: 'dd/MM/yyyy'}}</td>
             <td class="text-center truncate max-w-28 hidden sm:table-cell">{{promotion.description}}</td>
             <td class="text-center">
               <ui-dropdown text="Opções">
@@ -64,8 +64,8 @@
 </ng-template>
 
 <ng-template #createPromotion>
-  <!-- <app-create-product
-    [product]="promotionSelected"
+  <app-create-promotion
+    [promotion]="promotionSelected"
     (finishEvent$)="refresh()"
-  />   -->
+  />  
 </ng-template>

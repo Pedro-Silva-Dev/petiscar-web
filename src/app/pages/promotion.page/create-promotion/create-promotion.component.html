@@ -1,1 +1,57 @@
-<p>create-promotion works!</p>,
+<form [formGroup]="promotionForm">
+  <div class="mb-2">
+    <label ui-label for="name">Nome<small ui-danger-form>*</small></label>
+    <input ui-input type="text" id="name" formControlName="name" autocomplete="off" placeholder="Digite o nome do produto">
+    @if(promotionForm.get('name').hasError('maxlength')) {
+      <small ui-danger-form>Nome deve ter no máximo 300 characters.</small>
+    }
+    @if(promotionForm.get('name').dirty && promotionForm.get('name').hasError('required')) {
+      <small ui-danger-form>Nome é obrigatório.</small>
+    }
+  </div>
+  <div class="grid {{promotionForm?.value?.id ? 'grid-cols-2' : 'grid-cols-3'}} gap-4">
+    <div class="mb-2">
+      <label ui-label for="dhi">Data Inicial<small ui-danger-form>*</small></label>
+      <input ui-input type="date" id="dhi" formControlName="dhi" autocomplete="off" placeholder="Digite a data inicial">
+      @if(promotionForm.get('dhi').dirty && promotionForm.get('dhi').hasError('required')) {
+        <small ui-danger-form>Data inicial é obrigatório.</small>
+      }
+    </div>
+    <div class="mb-2">
+      <label ui-label for="dhf">Data Final<small ui-danger-form>*</small></label>
+      <input ui-input type="date" id="dhf" formControlName="dhf" autocomplete="off" placeholder="Digite a data final">
+      @if(promotionForm.get('dhf').dirty && promotionForm.get('dhf').hasError('required')) {
+        <small ui-danger-form>Data final é obrigatório.</small>
+      }
+    </div>
+    <div class="mb-2">
+      <label ui-label for="discount">Desconto<small ui-danger-form>*</small></label>
+      <input ui-input type="text" suffix="%" mask="percent.2" [decimalMarker]="','" [allowNegativeNumbers]="true"  [validation]="true" id="discount" formControlName="discount" autocomplete="off" placeholder="Digite o desconto">
+      @if(promotionForm.get('discount').dirty && promotionForm.get('discount').hasError('required')) {
+        <small ui-danger-form>Desconto é obrigatório.</small>
+      }
+    </div>
+    @if(promotionForm?.value?.id) {
+      <div class="mb-2">
+        <label ui-label for="active">Status</label>
+        <select  ui-select formControlName="active" id="active">
+          <option [value]="true">Habilitado</option>
+          <option [value]="false">Desabilitado</option>
+        </select>
+      </div>
+    }
+  </div>
+  <div class="mb-2">
+    <label ui-label for="description">Descrição</label>
+    <textarea ui-textarea formControlName="description" id="description" placeholder="Descreva a promoção."></textarea>
+    @if(promotionForm.get('description').hasError('maxlength')) {
+      <small ui-danger-form>Nome deve ter no máximo 500 characters.</small>
+    }
+  </div>
+</form>
+<div class="flex justify-end">
+  <app-ui-button (clickEvent$)="save()" [text]="promotionForm?.value?.id ? 'Atualizar' : 'Cadastrar'" [disabled]="promotionForm?.invalid" class="mr-4" [loadAction]="loadLogin"/>
+  <button (click)="closeModal()" ui-secondary>Cancelar</button>
+</div>
+
+
