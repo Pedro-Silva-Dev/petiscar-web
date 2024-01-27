@@ -1,6 +1,6 @@
 import { UI_ICON } from './../../../shared/enums/ui-icons.num';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Pagination } from '../../../shared/models/pagination.model';
 import { UiIconDirective } from '../../../shared/directives/interface/icons/ui-icon.directive';
 import { FeatherModule } from 'angular-feather';
@@ -37,10 +37,6 @@ export class UiPaginationComponent {
 
   public previousPage(): void {
     const currentPage: number = (this.pagination?.number + 1);
-    console.log(this.pagination?.number);
-    console.log(this.pagination?.number > 1);
-    console.log(currentPage <= this.pagination?.totalPages);
-    
     if(this.pagination?.number > 0 && currentPage <= this.pagination?.totalPages) {
       this.previousPageEvent$.emit(true);
     }

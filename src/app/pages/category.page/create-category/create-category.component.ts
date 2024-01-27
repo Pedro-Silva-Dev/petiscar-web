@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewContainerRef, inject, signal, type OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewContainerRef, inject, signal, type OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Category } from '../../../models/store/category.model';
 import { CategoryService } from '../../../services/category.service';
@@ -19,6 +19,7 @@ import { UI_ICON } from '../../../shared/enums/ui-icons.num';
 import { FeatherModule } from 'angular-feather';
 import { UiIconDirective } from '../../../shared/directives/interface/icons/ui-icon.directive';
 import { UiFeatherIconDirectiveModule } from '../../../shared/directives/interface/icons/ui-icons.module';
+import { UiPaginationListComponent } from '../../../components/interface/ui-pagination-list/ui-pagination-list.component';
 
 @Component({
   selector: 'app-create-category',
@@ -28,6 +29,7 @@ import { UiFeatherIconDirectiveModule } from '../../../shared/directives/interfa
     UiButtonIconComponent,
     UiButtonComponent,
     UiTableComponent,
+    UiPaginationListComponent,
     UiButtonModule,
     ReactiveFormsModule,
     UiAlertModule,
@@ -51,6 +53,7 @@ export class CreateCategoryComponent implements OnInit {
   private _categoryService: CategoryService = inject(CategoryService);
   private _productService: ProductService = inject(ProductService);
   private _toastService: UiToastService = inject(UiToastService);
+  private _changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   @Output() finishEvent$ = new EventEmitter<Category>();
   
@@ -60,12 +63,16 @@ export class CreateCategoryComponent implements OnInit {
 
   protected loadProductListEvent$ = new BehaviorSubject(false);
   protected loadProductsAddedEvent$ = new BehaviorSubject(false);
+  protected loadPaginationList = signal(false);
 
   protected deleteIcon = UI_ICON.DELETE;
+  protected page: number = 0;
+  protected size: number = 1;
   protected categoryForm: FormGroup;
   protected loadCreateCategory = signal(false);
   protected productList: Product[] = [];
   protected productAddedForCategoryList: Product[] = [];
+  protected productAddedList: Product[] = [];
 
   ngOnInit(): void {
     this._setProductList();
@@ -88,20 +95,29 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   public addProduct(): void {
-    const product: Product = this.categoryForm?.value?.productId ? this.productList?.find(res => res.id == this.categoryForm?.value?.productId) : null;
-    if(product) {
-      const productAdded = this.productAddedForCategoryList.find(res => res.id == product?.id);
-      if(!productAdded) {
-        this.productAddedForCategoryList.push(product);
-        this.categoryForm?.get('productId')?.setValue(null);
-      }else {
-        this._toastService.sendInfoMessage(`Esse produto já foi adicionado.`)
-      }
-    }
+    this.loadPaginationList.set(true);
+    this._changeDetector.detectChanges();
+    this._addProductForList();
+    this.loadPaginationList.set(false);
+    this._changeDetector.detectChanges();
   }
 
   public removeProduct(product: Product): void {
     this.productAddedForCategoryList = this.productAddedForCategoryList?.filter(res => res.id != product?.id);
+    this.productAddedList = this.productAddedList?.filter(res => res.id != product?.id);
+    if(!this.productAddedList?.length && this.page) {
+      this.page--;
+    }
+    this.addProduct();
+  }
+
+  public setPage(page: number): void {
+    this.page = page;
+  }
+
+  public setPaginationList(event: any): void {
+    this.productAddedList = event
+    this._changeDetector.detectChanges();
   }
 
   /*************** METHODS PRIVATE ***************/
@@ -147,6 +163,19 @@ export class CreateCategoryComponent implements OnInit {
           this.productList = res.body;
         }
       });
+    }
+  }
+
+  private _addProductForList(): void {
+    const product: Product = this.categoryForm?.value?.productId ? this.productList?.find(res => res.id == this.categoryForm?.value?.productId) : null;
+    if(product) {
+      const productAdded = this.productAddedForCategoryList.find(res => res.id == product?.id);
+      if(!productAdded) {
+        this.productAddedForCategoryList.push(product);
+        this.categoryForm?.get('productId')?.setValue(null);
+      }else {
+        this._toastService.sendInfoMessage(`Esse produto já foi adicionado.`)
+      }
     }
   }
 

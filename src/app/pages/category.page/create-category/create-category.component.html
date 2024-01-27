@@ -35,7 +35,7 @@
         <button (click)="addProduct()" ui-primary class="h-[2.9rem]">Adicionar</button>
       </div>
     </div>
-    <div class="mb-2">
+    <div class="mb-4 {{productAddedForCategoryList?.length ? 'h-64' : ''}}">
       <ui-table [empty]="true" [default]="true" [loadEvent$]="loadProductsAddedEvent$">
         <ng-container thead>
           <tr>
@@ -44,7 +44,7 @@
           </tr>
         </ng-container>
         <ng-container tbody>
-          @for (product of productAddedForCategoryList; track $index) {
+          @for (product of productAddedList; track $index) {
             <tr>
               <td class="truncate max-w-28">{{product.name}} </td>
               <td class="text-center">
@@ -53,16 +53,24 @@
             </tr>
           } 
         </ng-container>
-        @if(!productAddedForCategoryList?.length && !(this.loadProductsAddedEvent$ | async)) {
+        @if(!productAddedList?.length && !(this.loadProductsAddedEvent$ | async)) {
           <ng-container empty>
             <app-ui-alert-info class="mt-4" text="Nenhum produto adicionado"/>
           </ng-container>
         }
       </ui-table>
     </div>
+    @if (productAddedForCategoryList?.length && !loadPaginationList()) {
+      <div class="mt-2">
+          <app-ui-pagination-list 
+          (getPagination)="setPaginationList($event)" (getPage)="setPage($event)"
+          [data]="productAddedForCategoryList" [size]="size" [page]="page" 
+          />
+      </div>
+      }
    }
 </form>
-<div class="flex justify-end mt-4">
+<div class="flex justify-end {{productAddedForCategoryList?.length > size ? 'mt-2' : 'mt-8'}}">
   <app-ui-button (clickEvent$)="save()" [text]="categoryForm?.value?.id ? 'Atualizar' : 'Cadastrar'" [disabled]="categoryForm?.invalid" class="mr-4" [loadAction]="loadCreateCategory"/>
   <button (click)="closeModal()" ui-secondary>Cancelar</button>
 </div>
