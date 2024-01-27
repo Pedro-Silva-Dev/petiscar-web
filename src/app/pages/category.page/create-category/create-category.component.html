@@ -9,7 +9,7 @@
       <small ui-danger-form>Nome é obrigatório.</small>
     }
   </div>
-    @if(categoryForm?.value?.id) {
+    @if(category?.id) {
       <div class="mb-2">
         <label ui-label for="active">Status</label>
         <select  ui-select formControlName="active" id="active">
@@ -18,8 +18,51 @@
         </select>
       </div>
     }
+   @if (!category?.id) {
+    <div class="flex items-center">
+      <div class="mb-2 grow">
+        <label ui-label for="productId">Produtos</label>
+        @if (!(loadProductListEvent$ | async)) {
+          <select  ui-select formControlName="productId" id="productId" >
+            <option [value]="null">Selecione um produto</option>
+            @for (product of productList; track $index) {
+              <option [value]="product.id">{{product.name}}</option>
+            }
+          </select>
+        }
+      </div>
+      <div class="ml-4 mt-[1.7rem] flex-none">
+        <button (click)="addProduct()" ui-primary class="h-[2.9rem]">Adicionar</button>
+      </div>
+    </div>
+    <div class="mb-2">
+      <ui-table [empty]="true" [default]="true" [loadEvent$]="loadProductsAddedEvent$">
+        <ng-container thead>
+          <tr>
+            <th>Produto</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </ng-container>
+        <ng-container tbody>
+          @for (product of productAddedForCategoryList; track $index) {
+            <tr>
+              <td class="truncate max-w-28">{{product.name}} </td>
+              <td class="text-center">
+                <i-feather (click)="removeProduct(product)" ui-feather-icon [name]="deleteIcon"></i-feather>
+              </td>
+            </tr>
+          } 
+        </ng-container>
+        @if(!productAddedForCategoryList?.length && !(this.loadProductsAddedEvent$ | async)) {
+          <ng-container empty>
+            <app-ui-alert-info class="mt-4" text="Nenhum produto adicionado"/>
+          </ng-container>
+        }
+      </ui-table>
+    </div>
+   }
 </form>
 <div class="flex justify-end mt-4">
-  <app-ui-button (clickEvent$)="save()" [text]="categoryForm?.value?.id ? 'Atualizar' : 'Cadastrar'" [disabled]="categoryForm?.invalid" class="mr-4" [loadAction]="loadLogin"/>
+  <app-ui-button (clickEvent$)="save()" [text]="categoryForm?.value?.id ? 'Atualizar' : 'Cadastrar'" [disabled]="categoryForm?.invalid" class="mr-4" [loadAction]="loadCreateCategory"/>
   <button (click)="closeModal()" ui-secondary>Cancelar</button>
 </div>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { UI_ICON } from '../../../shared/enums/ui-icons.num';
 import { FeatherModule } from 'angular-feather';
-import { UiIconDirective } from '../../../shared/directives/interface/ui-icon.directive';
+import { UiIconDirective } from '../../../shared/directives/interface/icons/ui-icon.directive';
 import { AuthService } from '../../../services/auth.service';
 import { UserAuth } from '../../../models/public/user-auth.model';
 import { Unsubscribable } from 'rxjs';

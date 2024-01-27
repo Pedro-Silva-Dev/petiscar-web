@@ -19,6 +19,7 @@ export class UiTableComponent implements OnInit, OnDestroy{
     @Input() header: boolean = false;
     @Input() footer: boolean = false;
     @Input() empty: boolean = false;
+    @Input() default: boolean = false;
 
     private _unsubscribe: Unsubscribable;
     protected loadEvent = signal(false);

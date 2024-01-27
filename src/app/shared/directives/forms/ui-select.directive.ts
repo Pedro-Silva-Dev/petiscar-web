@@ -1,7 +1,7 @@
 import { Directive, ElementRef, OnInit, inject } from '@angular/core';
 
 @Directive({
-  selector: 'select[ui-select]',
+  selector: 'select[ui-select],ng-select[ui-select]',
   standalone: true,
 })
 export class UiSelectDirective implements OnInit { 

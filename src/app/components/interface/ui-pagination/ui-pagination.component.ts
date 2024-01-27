@@ -2,7 +2,7 @@ import { UI_ICON } from './../../../shared/enums/ui-icons.num';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { Pagination } from '../../../shared/models/pagination.model';
-import { UiIconDirective } from '../../../shared/directives/interface/ui-icon.directive';
+import { UiIconDirective } from '../../../shared/directives/interface/icons/ui-icon.directive';
 import { FeatherModule } from 'angular-feather';
 
 @Component({

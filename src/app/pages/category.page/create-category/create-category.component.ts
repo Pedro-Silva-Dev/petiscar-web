@@ -11,6 +11,14 @@ import { UiButtonModule } from '../../../shared/directives/buttons/ui-button.mod
 import { UiBadgeModule } from '../../../shared/directives/interface/ui-badge/ui-badge.module';
 import { UiButtonComponent } from '../../../components/forms/ui-button/ui-button.component';
 import { UiFormDirectiveModule } from '../../../shared/directives/forms/ui-form-directive.module';
+import { ProductService } from '../../../services/product.service';
+import { Product } from '../../../models/store/product.model';
+import { BehaviorSubject } from 'rxjs';
+import { UiTableComponent } from '../../../components/interface/ui-table/ui-table.component';
+import { UI_ICON } from '../../../shared/enums/ui-icons.num';
+import { FeatherModule } from 'angular-feather';
+import { UiIconDirective } from '../../../shared/directives/interface/icons/ui-icon.directive';
+import { UiFeatherIconDirectiveModule } from '../../../shared/directives/interface/icons/ui-icons.module';
 
 @Component({
   selector: 'app-create-category',
@@ -19,11 +27,14 @@ import { UiFormDirectiveModule } from '../../../shared/directives/forms/ui-form-
     CommonModule,
     UiButtonIconComponent,
     UiButtonComponent,
+    UiTableComponent,
     UiButtonModule,
     ReactiveFormsModule,
     UiAlertModule,
     UiBadgeModule,
-    UiFormDirectiveModule
+    UiFormDirectiveModule,
+    FeatherModule,
+    UiFeatherIconDirectiveModule
   ],
   templateUrl: './create-category.component.html',
   styles: `
@@ -38,6 +49,7 @@ export class CreateCategoryComponent implements OnInit {
   private _formBuilder: FormBuilder = inject(FormBuilder);
   private _modalService: UiModalService = inject(UiModalService);
   private _categoryService: CategoryService = inject(CategoryService);
+  private _productService: ProductService = inject(ProductService);
   private _toastService: UiToastService = inject(UiToastService);
 
   @Output() finishEvent$ = new EventEmitter<Category>();
@@ -46,10 +58,17 @@ export class CreateCategoryComponent implements OnInit {
   @Input() component: any;
   @Input() close = signal(false);
 
+  protected loadProductListEvent$ = new BehaviorSubject(false);
+  protected loadProductsAddedEvent$ = new BehaviorSubject(false);
+
+  protected deleteIcon = UI_ICON.DELETE;
   protected categoryForm: FormGroup;
-  protected loadLogin = signal(false);
+  protected loadCreateCategory = signal(false);
+  protected productList: Product[] = [];
+  protected productAddedForCategoryList: Product[] = [];
 
   ngOnInit(): void {
+    this._setProductList();
     this._createCategoryForm();
   }
 
@@ -68,6 +87,23 @@ export class CreateCategoryComponent implements OnInit {
     this._modalService.closeModal();
   }
 
+  public addProduct(): void {
+    const product: Product = this.categoryForm?.value?.productId ? this.productList?.find(res => res.id == this.categoryForm?.value?.productId) : null;
+    if(product) {
+      const productAdded = this.productAddedForCategoryList.find(res => res.id == product?.id);
+      if(!productAdded) {
+        this.productAddedForCategoryList.push(product);
+        this.categoryForm?.get('productId')?.setValue(null);
+      }else {
+        this._toastService.sendInfoMessage(`Esse produto já foi adicionado.`)
+      }
+    }
+  }
+
+  public removeProduct(product: Product): void {
+    this.productAddedForCategoryList = this.productAddedForCategoryList?.filter(res => res.id != product?.id);
+  }
+
   /*************** METHODS PRIVATE ***************/
 
   private _createCategoryForm(): void {
@@ -75,11 +111,14 @@ export class CreateCategoryComponent implements OnInit {
       id: [this.category?.id ? this.category.id : null],
       name: [this.category?.name ? this.category.name : null, [Validators.required, Validators.maxLength(300)]],
       active: [(this.category?.active != null && this.category?.active != undefined) ? this.category.active : true],
+      productId: [null],
     });
   }
 
   private _createCategory(): void {
-    this._categoryService.createCategory(this.categoryForm.value, this.loadLogin).subscribe(res => {
+    const productIds = this.productAddedForCategoryList?.length ? this.productAddedForCategoryList.map(res => res.id) : null;
+    const data = {...this.categoryForm.value, productIds}
+    this._categoryService.createCategory(data, this.loadCreateCategory).subscribe(res => {
       if(res.status == 201) {
         this._toastService.sendSuccessMessage(`Categoria cadastrado com sucesso!`);
         this.finishEvent$.emit(res.body);
@@ -89,13 +128,26 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   private _updateCategory(): void {
-    this._categoryService.updateCategory(this.categoryForm?.value?.id, this.categoryForm.value, this.loadLogin).subscribe(res => {
+    const productIds = this.productAddedForCategoryList?.length ? this.productAddedForCategoryList.map(res => res.id) : null;
+    const data = {...this.categoryForm.value, productIds}
+    this._categoryService.updateCategory(this.categoryForm?.value?.id, data, this.loadCreateCategory).subscribe(res => {
       if(res.status == 202) {
         this._toastService.sendSuccessMessage(`Categoria atualizado com sucesso!`);
         this.finishEvent$.emit(res.body);
         this.closeModal();
       }
     });
+  }
+
+  private _setProductList(): void {
+    if(!this.category?.id) {
+      const build = {active: true};
+      this._productService.getProductList(build, this.loadProductListEvent$).subscribe(res => {
+        if(res.status == 200) {
+          this.productList = res.body;
+        }
+      });
+    }
   }
 
 }

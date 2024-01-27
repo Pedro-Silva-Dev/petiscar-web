@@ -22,6 +22,8 @@ export class UiCardComponent implements OnInit {
   @Input() header: boolean = true;
   @Input() body: boolean = true;
   @Input() footer: boolean = true;
+  @Input() isTransparent: boolean = false;
+  @Input() isPadding: boolean = true;
 
     ngOnInit(): void { 
     }

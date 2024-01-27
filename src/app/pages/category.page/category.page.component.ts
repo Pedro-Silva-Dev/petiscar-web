@@ -91,7 +91,8 @@ export class CategoryPageComponent implements OnInit {
 
   public displayModalCreateCategory(template: TemplateRef<any>, category: Category): void {
     this.categorySelected = category;
-    const config: ModalConfig = {title: 'Pesquisar', size: MODAL_SIZE.SMALL, template};
+    const title = category?.id ? `Atualizar Categoria` : `Cadastrar Categoria`;
+    const config: ModalConfig = {title, size: category?.id ? MODAL_SIZE.SMALL : MODAL_SIZE.MEDIUM, template};
     this._modalService.openModal(config);
   }
 

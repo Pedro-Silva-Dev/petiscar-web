@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, computed, signal } from '@angular/core';
 import { UI_ICON } from '../../../shared/enums/ui-icons.num';
 import { FeatherModule } from 'angular-feather';
-import { UiIconDirective } from '../../../shared/directives/interface/ui-icon.directive';
+import { UiIconDirective } from '../../../shared/directives/interface/icons/ui-icon.directive';
 import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-button-primary.directive';
 
 @Component({

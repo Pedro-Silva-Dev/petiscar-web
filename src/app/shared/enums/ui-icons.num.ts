@@ -12,4 +12,5 @@ export enum UI_ICON {
   ARROW_RIGHT = `arrow-right`,
   SEARCH = `search`,
   CLOSE = `x-circle`,
+  DELETE = `trash-2`,
 }

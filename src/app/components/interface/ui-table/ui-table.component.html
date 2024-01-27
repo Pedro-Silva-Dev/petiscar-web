@@ -1,4 +1,4 @@
-<ui-card [header]="header" [footer]="footer">
+<ui-card [header]="header" [footer]="footer" [isTransparent]="default" [isPadding]="!default">
     @if (header) {
         <ng-container header>
             <ng-content select="[header]"></ng-content>

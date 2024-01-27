@@ -1,4 +1,4 @@
-<div class="card w-full bg-base-100 shadow">
+<div class="card w-full {{isTransparent ? ' bg-transparent' : ' bg-base-100 shadow'}}">
     @if (default) {
         <ng-content select="[default]"></ng-content>
     }
@@ -8,12 +8,12 @@
         </h2>
     }
     @if (header && !default) {
-        <div class="w-full p-4">
+        <div class="w-full {{isPadding ? 'p-4' : 'p-0'}}">
             <ng-content select="[header]"></ng-content>
         </div>
     }
     @if (body && !default) {
-        <div class="card-body">
+        <div class="card-body {{isPadding ? '' : 'p-0'}}">
             <ng-content select="[body]"></ng-content>
         </div>
     }
