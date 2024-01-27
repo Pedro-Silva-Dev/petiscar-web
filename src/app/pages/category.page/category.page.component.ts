@@ -18,6 +18,9 @@ import { ModalConfig } from '../../shared/models/modal-config.model';
 import { MODAL_SIZE } from '../../shared/enums/modal-size.enum';
 import { FilterPageCategoryComponent } from './filter-page-category/filter-page-category.component';
 import { CreateCategoryComponent } from './create-category/create-category.component';
+import { Router } from '@angular/router';
+import { ROUTE } from '../../shared/enums/route.enum';
+import { UiLinkDirective } from '../../shared/directives/interface/ui-link.directive';
 
 @Component({
   selector: 'app-category.page',
@@ -28,13 +31,14 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
     UiPaginationComponent,
     UiDropdownComponent,
     UiButtonIconComponent,
+    FilterPageCategoryComponent,
+    CreateCategoryComponent,
     UiFormDirectiveModule,
     UiButtonModule,
     ReactiveFormsModule,
     UiAlertModule,
     UiBadgeModule,
-    FilterPageCategoryComponent,
-    CreateCategoryComponent
+    UiLinkDirective
   ],
   templateUrl: './category.page.component.html',
   styles: `
@@ -48,6 +52,7 @@ export class CategoryPageComponent implements OnInit {
 
   private _categoryService: CategoryService = inject(CategoryService);
   private _modalService: UiModalService = inject(UiModalService);
+  private _router: Router = inject(Router);
   
   protected loadPageCategoryEvent$ = new BehaviorSubject(false);
 
@@ -98,6 +103,11 @@ export class CategoryPageComponent implements OnInit {
 
   public refresh(): void {
     this._setPageCategory();
+  }
+
+  public navigateCategoryDetail(category: Category): void {
+    const id: number = category?.id ? category.id : 0;
+    this._router.navigate([`/${ROUTE.CATEGORY_DETAIL.replace(':id', `${id}`)}`]);
   }
 
   /******************* METHODS PRIVATE *******************/

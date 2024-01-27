@@ -1,52 +1,57 @@
-<!-- <div class="grid grid-cols-1 p-4">
+<div class="grid grid-cols-1 p-4">
   <div class="flex justify-between">
-    <h3 class="md:text-2xl sm:text-lg">Categorias</h3>
+    <h3 class="md:text-2xl sm:text-lg">{{category?.name ? category?.name : '-'}} / <a (click)="navigateCategory()" ui-link class="text-lg" href="javascript:void(0)">Voltar</a></h3>
     <div class="flex">
-      <button ui-primary (click)="displayModalCreateCategory(createCategory, null)">Novo</button>
-      <ui-button-icon (click)="displaySideModal(filterCategory)" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon>
+      <!-- <button ui-primary (click)="displayModalCreateCategory(createCategory, null)">Novo</button>
+      <ui-button-icon (click)="displaySideModal(filterCategory)" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon> -->
     </div>
   </div>
   <div class="mt-4">
-    <ui-table [footer]="true" [empty]="true" [loadEvent$]="loadPageCategoryEvent$">
+    <ui-table [footer]="true" [empty]="true" [loadEvent$]="loadCategoryEvent$">
       <ng-container thead>
         <tr>
-          <th>Nome</th>
+          <th>Produto</th>
+          <th class="text-end">Preço</th>
+          <th class="text-end">Estoque</th>
+          <th class="text-center hidden sm:table-cell">Descrição</th>
           <th class="text-center">Ações</th>
         </tr>
       </ng-container>
       <ng-container tbody>
-        @for (category of categoryList; track $index) {
+        @for (product of category?.products; track $index) {
           <tr>
-            <td class="truncate max-w-28">{{category.name}} 
-              @if (!category.active) {
+            <td class="truncate max-w-28">{{product.name}} 
+              @if (!product.active) {
                 <span ui-badge-danger>Desabilitado</span>
               }
             </td>
+            <td class="text-end">{{'R$ '+product.price}}</td>
+            <td class="text-end">{{product.stock?.toLocaleString('pt-Br')}}</td>
+            <td class="text-center truncate max-w-28 hidden sm:table-cell">{{product.description}}</td>
             <td class="text-center">
               <ui-dropdown text="Opções">
                 <<ng-container link>
-                  <li><a (click)="displayModalCreateCategory(createCategory, category)" href="javascript:void(0)">Editar</a></li>
+                  <li><a (click)="removeProducts([product.id])" href="javascript:void(0)">Remover</a></li>
                 </ng-container>
               </ui-dropdown>
             </td>
           </tr>
         } 
       </ng-container>
-      @if(!categoryList?.length && !(this.loadPageCategoryEvent$ | async)) {
+      @if(!category?.products?.length && !(this.loadCategoryEvent$ | async)) {
         <ng-container empty>
           <app-ui-alert-info class="mt-4"/>
         </ng-container>
       }
-      @if(!(loadPageCategoryEvent$ | async) && pagination?.totalElements > size) {
+      <!-- @if(!(loadCategoryEvent$ | async) && pagination?.totalElements > size) {
         <ng-container footer>
           <ui-pagination class="p-4 w-full *:flex *:justify-center"
             [pagination]="pagination"
             (nextPageEvent$)="nextPage()" (previousPageEvent$)="previousPage()"
             />
         </ng-container>
-      }
+      } -->
     </ui-table>
 </div>
 
 
- -->

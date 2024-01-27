@@ -62,17 +62,17 @@ export class BaseService {
     )).pipe(take(1)).pipe(tap((_: any) => eventComponent?.set(false)));
   }
 
-  protected delete(url: string, eventComponent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false), msgError?: string, build?: any): Observable<HttpResponse<any>> {
-    eventComponent?.next(true);
+  protected delete(url: string, eventComponent = signal(false), msgError?: string, build?: any): Observable<HttpResponse<any>> {
+    eventComponent?.set(true);
     return this.http.delete<boolean>(`${BASE_URL}${url}?success=true${this._getInfoBuild(build)}`, { observe: 'response' }).pipe(catchError(
       (err: any) => {
         if(msgError) {
           this.toastrService.sendErrorMessage(msgError);
         }
-        eventComponent?.next(false);
+        eventComponent?.set(false);
         return throwError(() => err);
       }
-    )).pipe(take(1)).pipe(tap((_: any) => eventComponent?.next(false)));
+    )).pipe(take(1)).pipe(tap((_: any) => eventComponent?.set(false)));
   }
 
   /******************* METHODS PRIVATE *******************/

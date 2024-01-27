@@ -11,7 +11,7 @@ import { UI_TOAST_TYPE } from '../../../shared/enums/ui-toast-type.enum';
   ],
   template: `
   @if(!disable()) {
-    <div class="transition-opacity duration-1000 ease-out {{active() ? 'opacity-100 z-[9999] fixed' : 'opacity-0'}}">
+    <div class="transition-opacity duration-1000 ease-out z-[9999] {{active() ? 'opacity-100 fixed' : 'opacity-0'}}">
         <div class="toast toast-top toast-end">
           <div class="md:max-w-[25rem] alert {{type()}}">
             <span class="text-wrap">{{text()}}</span>
