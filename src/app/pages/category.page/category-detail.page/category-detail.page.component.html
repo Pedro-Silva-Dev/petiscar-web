@@ -2,12 +2,12 @@
   <div class="flex justify-between">
     <h3 class="md:text-2xl sm:text-lg">{{category?.name ? category?.name : '-'}} / <a (click)="navigateCategory()" ui-link class="text-lg" href="javascript:void(0)">Voltar</a></h3>
     <div class="flex">
-      <!-- <button ui-primary (click)="displayModalCreateCategory(createCategory, null)">Novo</button>
-      <ui-button-icon (click)="displaySideModal(filterCategory)" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon> -->
+      <!-- <button ui-primary (click)="displayModalCreateCategory(createCategory, null)">Novo</button> -->
+      <ui-button-icon (click)="displaySideModal(filterProduct)" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon>
     </div>
   </div>
   <div class="mt-4">
-    <ui-table [footer]="true" [empty]="true" [loadEvent$]="loadCategoryEvent$">
+    <ui-table [footer]="true" [empty]="true" [loadEvent$]="loadCategoryDetailPageEvent$">
       <ng-container thead>
         <tr>
           <th>Produto</th>
@@ -18,7 +18,7 @@
         </tr>
       </ng-container>
       <ng-container tbody>
-        @for (product of category?.products; track $index) {
+        @for (product of productList; track $index) {
           <tr>
             <td class="truncate max-w-28">{{product.name}} 
               @if (!product.active) {
@@ -38,7 +38,7 @@
           </tr>
         } 
       </ng-container>
-      @if(!category?.products?.length && !(this.loadCategoryEvent$ | async)) {
+      @if(!productList?.length && !(this.loadCategoryDetailPageEvent$ | async)) {
         <ng-container empty>
           <app-ui-alert-info class="mt-4"/>
         </ng-container>
@@ -54,4 +54,10 @@
     </ui-table>
 </div>
 
+<ng-template #filterProduct>
+  <app-filter-page-product
+    [filter]="filterForm"
+    (searchEvent$)="search($event)"
+  />
+</ng-template>
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal, type OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, type OnInit, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FeatherModule } from 'angular-feather';
 import { UiButtonIconComponent } from '../../../components/forms/ui-button/ui-button-icon.component';
@@ -19,6 +19,11 @@ import { UiDropdownComponent } from '../../../components/interface/ui-dropdown/u
 import { ROUTE } from '../../../shared/enums/route.enum';
 import { UiLinkDirective } from '../../../shared/directives/interface/ui-link.directive';
 import { UiToastService } from '../../../services/ui-toast.service';
+import { MODAL_SIZE } from '../../../shared/enums/modal-size.enum';
+import { ModalConfig } from '../../../shared/models/modal-config.model';
+import { UiModalService } from '../../../components/interface/modals/ui-modal.service';
+import { FilterPageProductComponent } from '../../product.page/filter-page-product/filter-page-product.component';
+import { Product } from '../../../models/store/product.model';
 
 @Component({
   selector: 'app-category-detail.page',
@@ -29,6 +34,7 @@ import { UiToastService } from '../../../services/ui-toast.service';
     UiButtonComponent,
     UiTableComponent,
     UiPaginationListComponent,
+    FilterPageProductComponent,
     UiButtonModule,
     UiDropdownComponent,
     ReactiveFormsModule,
@@ -52,13 +58,18 @@ export class CategoryDetailPageComponent implements OnInit {
   private _categoryService: CategoryService = inject(CategoryService);
   private _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private _toastrService: UiToastService = inject(UiToastService);
+  private _modalService: UiModalService = inject(UiModalService);
+  private _changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
   private _router: Router = inject(Router);
   private _categoryId: number = this._activatedRoute.snapshot.params['id'];
 
-  protected loadCategoryEvent$ = new BehaviorSubject(false);
+  protected loadCategoryDetailPageEvent$ = new BehaviorSubject(false);
   protected loadRemoveProductCategory = signal(false);
-
+  protected isLoadingButton = signal(false);
+  
+  protected filterForm: any = {};
   protected category: Category;
+  protected productList: Product[] = [];
 
   ngOnInit(): void { 
     this._setCategoryById();
@@ -74,12 +85,32 @@ export class CategoryDetailPageComponent implements OnInit {
     }
   }
 
+  public displaySideModal(template: TemplateRef<any>): void {
+    const config: ModalConfig = {title: 'Pesquisar', size: MODAL_SIZE.SMALL, template};
+    this._modalService.openSideModal(config);
+  }
+
+  public closeSideModal(): void {
+    this._modalService.closeSideModal();
+  }
+
+  public search(filterForm: any): void {
+    this._detectDetailPage(true);
+    this.filterForm = filterForm;
+    if(filterForm) {
+      this.productList = this._filterProducts(filterForm);
+    }
+    this.closeSideModal();
+    this._detectDetailPage(false);
+  }
+
   /******************* METHODS PRIVATE *******************/
 
   private _setCategoryById(): void {
-    this._categoryService.getCategoryWithProductList(this._categoryId, this.loadCategoryEvent$).subscribe(res => {
+    this._categoryService.getCategoryWithProductList(this._categoryId, this.loadCategoryDetailPageEvent$).subscribe(res => {
       if(res.status == 200) {
         this.category = res.body;
+        this.productList = this.category?.products ? this.category?.products : [];
       }
     });
   }
@@ -91,6 +122,36 @@ export class CategoryDetailPageComponent implements OnInit {
         this._setCategoryById();
       }
     });
+  }
+
+  private _filterProducts(filterForm: any): Product[] {
+    let productList = this.category.products;
+    const name: string = filterForm?.name;
+    if(name) {
+      productList = productList?.filter(res => res.name.toLowerCase().includes(name?.toLowerCase()))
+    }
+    const priceMax: string = filterForm?.priceMax;
+    if(priceMax) {
+      productList = productList?.filter(res => res.price <= Number.parseFloat(priceMax));
+    }
+    const priceMin: string = filterForm?.priceMin;
+    if(priceMin) {
+      productList = productList?.filter(res => res.price >= Number.parseFloat(priceMin));
+    }
+    const stock: string = filterForm?.stock;
+    if(stock) {
+      productList = productList?.filter(res => res.stock <= Number.parseFloat(stock));
+    }
+    const active: boolean = filterForm?.active;
+    if(active) {
+      productList = productList?.filter(res => res.active == active);
+    }
+    return productList;
+  }
+
+  private _detectDetailPage(value: boolean) {
+    this.loadCategoryDetailPageEvent$.next(value);
+    this._changeDetector.detectChanges();
   }
 
 }
