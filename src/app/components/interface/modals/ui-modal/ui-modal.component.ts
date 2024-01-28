@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild, ViewContainerRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef, inject, signal } from '@angular/core';
 import { UiModalService } from '../ui-modal.service';
 import { Unsubscribable } from 'rxjs';
 import { UI_ICON } from '../../../../shared/enums/ui-icons.num';
@@ -37,7 +37,7 @@ import { MODAL_SIZE } from '../../../../shared/enums/modal-size.enum';
     `,
     changeDetection: ChangeDetectionStrategy.Default,
 })
-export class UiModalComponent implements OnInit {
+export class UiModalComponent implements OnInit, OnDestroy {
 
     @ViewChild('modal', {read: ViewContainerRef}) modal: ViewContainerRef;
 

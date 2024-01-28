@@ -20,10 +20,11 @@ import { ROUTE } from '../../../shared/enums/route.enum';
 import { UiLinkDirective } from '../../../shared/directives/interface/ui-link.directive';
 import { UiToastService } from '../../../services/ui-toast.service';
 import { MODAL_SIZE } from '../../../shared/enums/modal-size.enum';
-import { ModalConfig } from '../../../shared/models/modal-config.model';
+import { ModalConfig, ModalFullFilterConfig } from '../../../shared/models/modal-config.model';
 import { UiModalService } from '../../../components/interface/modals/ui-modal.service';
 import { FilterPageProductComponent } from '../../product.page/filter-page-product/filter-page-product.component';
 import { Product } from '../../../models/store/product.model';
+import { UiModalFullFilterComponent } from '../../../components/interface/modals/ui-modal-full-filter/ui-modal-full-filter.component';
 
 @Component({
   selector: 'app-category-detail.page',
@@ -43,7 +44,8 @@ import { Product } from '../../../models/store/product.model';
     UiFormDirectiveModule,
     FeatherModule,
     UiFeatherIconDirectiveModule,
-    UiLinkDirective
+    UiLinkDirective,
+    UiModalFullFilterComponent
   ],
   templateUrl: './category-detail.page.component.html',
   styles: `
@@ -102,6 +104,11 @@ export class CategoryDetailPageComponent implements OnInit {
     }
     this.closeSideModal();
     this._detectDetailPage(false);
+  }
+
+  public displayModalAddProducts(template: TemplateRef<any>, sideTemplate: TemplateRef<any>): void {
+    const config: ModalFullFilterConfig = {title: 'Adicionar Produtos', sideTitle: 'Pesquisar', size: MODAL_SIZE.SMALL, template, sideTemplate};
+    this._modalService.openFullFilterModal(config);
   }
 
   /******************* METHODS PRIVATE *******************/

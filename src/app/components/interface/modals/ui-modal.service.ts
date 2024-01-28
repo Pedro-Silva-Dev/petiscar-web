@@ -1,6 +1,6 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { ModalConfig } from '../../../shared/models/modal-config.model';
+import { ModalConfig, ModalFullFilterConfig } from '../../../shared/models/modal-config.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class UiModalService {
 
   private _modalEvent$ = new Subject<ModalConfig>();
   private _modalSideEvent$ = new Subject<ModalConfig>();
+  private _modalFullFilterEvent$ = new Subject<ModalFullFilterConfig>();
 
   public getModalEvent(): Observable<ModalConfig> {
     return this._modalEvent$.asObservable();
@@ -35,6 +36,20 @@ export class UiModalService {
   public closeSideModal(): void {
     setTimeout(() => {
       this._modalSideEvent$.next(null);
+    }, 0);
+  }
+
+  public getModalFullFilterEvent(): Observable<ModalFullFilterConfig> {
+    return this._modalFullFilterEvent$.asObservable();
+  }
+
+  public openFullFilterModal(config: ModalFullFilterConfig): void {
+    this._modalFullFilterEvent$.next(config);
+  }
+
+  public closeFullFilterModal(): void {
+    setTimeout(() => {
+      this._modalFullFilterEvent$.next(null);
     }, 0);
   }
 
