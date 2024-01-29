@@ -17,8 +17,8 @@
         <input ui-input  mask="0000" [allowNegativeNumbers]="true" type="text" id="stock" formControlName="stock" autocomplete="off" placeholder="Digite o valor do estoque disponível">
       </div>
       <div class="mb-2">
-        <label ui-label for="stock">Status</label>
-        <select  ui-select name="" id="">
+        <label ui-label for="active">Status</label>
+        <select  ui-select formControlName="active" id="active">
           <option [value]="null">Selecione um status</option>
           <option [value]="true">Habilitado</option>
           <option [value]="false">Desabilitado</option>

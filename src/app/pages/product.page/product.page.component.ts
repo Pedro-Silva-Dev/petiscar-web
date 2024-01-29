@@ -1,6 +1,6 @@
 import { UiInputDirective } from './../../shared/directives/forms/ui-input.directive';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, type OnInit, signal, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, type OnInit, signal, TemplateRef, WritableSignal } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Pagination } from '../../shared/models/pagination.model';
 import { Product } from '../../models/store/product.model';
@@ -26,6 +26,7 @@ import { MODAL_SIZE } from '../../shared/enums/modal-size.enum';
 import { UiBadgeModule } from '../../shared/directives/interface/ui-badge/ui-badge.module';
 import { UiButtonModule } from '../../shared/directives/buttons/ui-button.module';
 import { UiFormDirectiveModule } from '../../shared/directives/forms/ui-form-directive.module';
+import { ProductTableComponent } from './product-table/product-table.component';
 
 @Component({
   selector: 'app-product.page',
@@ -33,6 +34,7 @@ import { UiFormDirectiveModule } from '../../shared/directives/forms/ui-form-dir
   imports: [
     CommonModule,
     UiTableComponent,
+    ProductTableComponent,
     CreateProductComponent,
     UiPaginationComponent,
     UiDropdownComponent,
@@ -61,7 +63,7 @@ export class ProductPageComponent implements OnInit {
   protected page: number = 0;
   protected size: number = 12;
   protected pagination: Pagination<Product>;
-  protected productList: Product[] = [];
+  protected productList: WritableSignal<Product[]> = signal([]);
   protected isLoadingButton = signal(false);
   protected productSelected: Product = null;
    
@@ -114,7 +116,7 @@ export class ProductPageComponent implements OnInit {
     this._productService.getProductPage(build, this.loadPageProductEvent$).subscribe(res => {
       if(res.status == 200) {
         this.pagination = res.body;
-        this.productList = res.body.content;
+        this.productList.set(res.body.content);
       }
     });
   }

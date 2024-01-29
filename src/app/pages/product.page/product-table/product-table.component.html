@@ -1,0 +1,55 @@
+<ui-table [footer]="true" [default]="true" [empty]="true" [loadEvent$]="loadPageProductEvent$">
+  <ng-container thead>
+    <tr>
+      @if (displayCheckboxAction) {
+        <th class="w-10">
+          <label class="cursor-pointer label text-white">
+            <input ui-input-checkbox type="checkbox" [checked]="false" />
+          </label>
+        </th>
+      }
+      <th class="text-start">Nome</th>
+      <th class="text-end">Preço</th>
+      <th class="text-end">Estoque</th>
+      <th class="text-center hidden sm:table-cell">Descrição</th>
+      @if (displayButtonAction) {
+        <th class="text-center">Ações</th>
+      }
+    </tr>
+  </ng-container>
+  <ng-container tbody>
+    @for (product of productList(); track $index) {
+      <tr>
+        @if (displayCheckboxAction) {
+          <td>
+            <label class="cursor-pointer label">
+              <input ui-input-checkbox type="checkbox" [checked]="product.productAdded" />
+            </label>
+          </td>
+        }
+        <td class="text-start truncate max-w-28">{{product.name}} 
+          @if (!product.active) {
+            <span ui-badge-danger>Desabilitado</span>
+          }
+        </td>
+        <td class="text-end">{{'R$ '+product.price?.toFixed(2)}}</td>
+        <td class="text-end">{{product.stock?.toLocaleString('pt-Br')}}</td>
+        <td class="text-center truncate max-w-28 hidden sm:table-cell">{{product.description}}</td>
+        @if (displayButtonAction) {
+          <td class="text-center">
+            <ui-dropdown text="Opções">
+              <<ng-container link>
+                <li><a (click)="displayEditProduct(product)" href="javascript:void(0)">Editar</a></li>
+              </ng-container>
+            </ui-dropdown>
+          </td>
+        }
+      </tr>
+    } 
+  </ng-container>
+  @if(!productList()?.length && !(this.loadPageProductEvent$ | async)) {
+    <ng-container empty>
+      <app-ui-alert-info class="mt-4"/>
+    </ng-container>
+  }
+</ui-table>

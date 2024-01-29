@@ -7,51 +7,17 @@
     </div>
   </div>
   <div class="mt-4">
-    <ui-table [footer]="true" [empty]="true" [loadEvent$]="loadPageProductEvent$">
-      <ng-container thead>
-        <tr>
-          <th>Nome</th>
-          <th class="text-end">Preço</th>
-          <th class="text-end">Estoque</th>
-          <th class="text-center hidden sm:table-cell">Descrição</th>
-          <th class="text-center">Ações</th>
-        </tr>
+    @if (!(loadPageProductEvent$ | async)) {
+      <app-product-table [productList]="productList"/>
+    }
+    @if(!(loadPageProductEvent$ | async) && pagination?.totalElements > size) {
+      <ng-container footer>
+        <ui-pagination class="p-4 w-full *:flex *:justify-center"
+          [pagination]="pagination"
+          (nextPageEvent$)="nextPage()" (previousPageEvent$)="previousPage()"
+          />
       </ng-container>
-      <ng-container tbody>
-        @for (product of productList; track $index) {
-          <tr>
-            <td class="truncate max-w-28">{{product.name}} 
-              @if (!product.active) {
-                <span ui-badge-danger>Desabilitado</span>
-              }
-            </td>
-            <td class="text-end">{{'R$ '+product.price}}</td>
-            <td class="text-end">{{product.stock?.toLocaleString('pt-Br')}}</td>
-            <td class="text-center truncate max-w-28 hidden sm:table-cell">{{product.description}}</td>
-            <td class="text-center">
-              <ui-dropdown text="Opções">
-                <<ng-container link>
-                  <li><a (click)="displayModalCreateProduct(createProduct, product)" href="javascript:void(0)">Editar</a></li>
-                </ng-container>
-              </ui-dropdown>
-            </td>
-          </tr>
-        } 
-      </ng-container>
-      @if(!productList?.length && !(this.loadPageProductEvent$ | async)) {
-        <ng-container empty>
-          <app-ui-alert-info class="mt-4"/>
-        </ng-container>
-      }
-      @if(!(loadPageProductEvent$ | async) && pagination?.totalElements > size) {
-        <ng-container footer>
-          <ui-pagination class="p-4 w-full *:flex *:justify-center"
-            [pagination]="pagination"
-            (nextPageEvent$)="nextPage()" (previousPageEvent$)="previousPage()"
-            />
-        </ng-container>
-      }
-    </ui-table>
+    }
 </div>
 
 <ng-template #filterProduct>

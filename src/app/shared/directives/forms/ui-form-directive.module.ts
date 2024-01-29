@@ -4,6 +4,7 @@ import { UiInputDirective } from "./ui-input.directive";
 import { UiLabelDirective } from "./ui-label.directive";
 import { UiSelectDirective } from "./ui-select.directive";
 import { UiTextAreaDirective } from "./ui-text-area.directive";
+import { UiInputCheckboxDirective } from "./ui-input-checkbox.directive";
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { UiTextAreaDirective } from "./ui-text-area.directive";
     UiLabelDirective,
     UiSelectDirective,
     UiTextAreaDirective,
+    UiInputCheckboxDirective
   ],
   exports: [
     UiDangerFormDirective,
@@ -19,6 +21,7 @@ import { UiTextAreaDirective } from "./ui-text-area.directive";
     UiLabelDirective,
     UiSelectDirective,
     UiTextAreaDirective,
+    UiInputCheckboxDirective
   ], 
 })
 export class UiFormDirectiveModule {}

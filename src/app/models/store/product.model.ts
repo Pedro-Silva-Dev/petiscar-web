@@ -6,4 +6,5 @@ export interface Product {
   stock: number;
   active: boolean; 
   categoryId?: number; 
+  productAdded?: boolean;
 }

@@ -66,7 +66,7 @@ export class FilterPageProductComponent implements OnInit {
 
   private _createFilterForm(): void {
     this.filterForm = this._formBuilder.group({
-      name: [this.filter?.name ? this.filter.name : ''],
+      name: [this.filter?.name ? this.filter.name : null],
       priceMax: [this.filter?.priceMax ? this.filter?.priceMax : null],
       priceMin: [this.filter?.priceMin ? this.filter?.priceMin : null],
       stock: [this.filter?.stock ? this.filter?.stock : null],

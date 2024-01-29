@@ -31,7 +31,6 @@ export class UiModalFullFilterComponent implements OnInit, OnDestroy {
   protected sideTitleText: string = 'Pesquisar';
 
   private _uiModalService: UiModalService = inject(UiModalService);
-  private _changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
   private _unsubscribe: Unsubscribable;
 
   protected icon = UI_ICON.CLOSE;
@@ -46,10 +45,8 @@ export class UiModalFullFilterComponent implements OnInit, OnDestroy {
     this._unsubscribe?.unsubscribe();
   } 
 
-
   public closeModal(): void {
-    this._uiModalService.closeModal();
-    this._closeModal();
+    this._uiModalService.closeFullFilterModal();
   }
 
   private _setModalSideEvent(): void {
@@ -79,9 +76,10 @@ export class UiModalFullFilterComponent implements OnInit, OnDestroy {
     this.isOpen.set(true);
     setTimeout(() => {
       this.isAnimation.set(true);
+      this.modal?.createEmbeddedView(config.template);
+      this.sideModal?.createEmbeddedView(config.sideTemplate);
     }, 0);
-    this.modal.createEmbeddedView(config.template);
-    this.sideModal.createEmbeddedView(config.sideTemplate);
+    
   }
 
   

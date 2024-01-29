@@ -2,7 +2,7 @@
   <div class="flex justify-between">
     <h3 class="md:text-2xl sm:text-lg">{{category?.name ? category?.name : '-'}} / <a (click)="navigateCategory()" ui-link class="text-lg" href="javascript:void(0)">Voltar</a></h3>
     <div class="flex">
-      <button ui-primary (click)="displayModalAddProducts(contentFilter, sideFilter)">Novo</button>
+      <button ui-primary (click)="displayModalAddProducts(true)">Adicionar</button>
       <ui-button-icon (click)="displaySideModal(filterProduct)" [loadAction]="isLoadingButton" class="ml-2 outline-none"></ui-button-icon>
     </div>
   </div>
@@ -43,14 +43,6 @@
           <app-ui-alert-info class="mt-4"/>
         </ng-container>
       }
-      <!-- @if(!(loadCategoryEvent$ | async) && pagination?.totalElements > size) {
-        <ng-container footer>
-          <ui-pagination class="p-4 w-full *:flex *:justify-center"
-            [pagination]="pagination"
-            (nextPageEvent$)="nextPage()" (previousPageEvent$)="previousPage()"
-            />
-        </ng-container>
-      } -->
     </ui-table>
 </div>
 
@@ -61,11 +53,11 @@
   />
 </ng-template>
 
-<ng-template #contentFilter>
-  TESTANDO
-</ng-template>
+@if (displayAddProductCategory()) {
+  <app-add-product-category 
+    (closeEvent$)="displayModalAddProducts(false)"
+    [productsAddedList]="category?.products"
+  />
+}
 
-<ng-template #sideFilter>
-  FILTROS
-</ng-template>
 

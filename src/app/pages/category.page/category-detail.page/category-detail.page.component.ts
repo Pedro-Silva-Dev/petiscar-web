@@ -25,6 +25,8 @@ import { UiModalService } from '../../../components/interface/modals/ui-modal.se
 import { FilterPageProductComponent } from '../../product.page/filter-page-product/filter-page-product.component';
 import { Product } from '../../../models/store/product.model';
 import { UiModalFullFilterComponent } from '../../../components/interface/modals/ui-modal-full-filter/ui-modal-full-filter.component';
+import { ProductTableComponent } from '../../product.page/product-table/product-table.component';
+import { AddProductCategoryComponent } from './add-product-category/add-product-category.component';
 
 @Component({
   selector: 'app-category-detail.page',
@@ -34,6 +36,7 @@ import { UiModalFullFilterComponent } from '../../../components/interface/modals
     UiButtonIconComponent,
     UiButtonComponent,
     UiTableComponent,
+    AddProductCategoryComponent,
     UiPaginationListComponent,
     FilterPageProductComponent,
     UiButtonModule,
@@ -68,6 +71,7 @@ export class CategoryDetailPageComponent implements OnInit {
   protected loadCategoryDetailPageEvent$ = new BehaviorSubject(false);
   protected loadRemoveProductCategory = signal(false);
   protected isLoadingButton = signal(false);
+  protected displayAddProductCategory = signal(false);
   
   protected filterForm: any = {};
   protected category: Category;
@@ -106,9 +110,8 @@ export class CategoryDetailPageComponent implements OnInit {
     this._detectDetailPage(false);
   }
 
-  public displayModalAddProducts(template: TemplateRef<any>, sideTemplate: TemplateRef<any>): void {
-    const config: ModalFullFilterConfig = {title: 'Adicionar Produtos', sideTitle: 'Pesquisar', size: MODAL_SIZE.SMALL, template, sideTemplate};
-    this._modalService.openFullFilterModal(config);
+  protected displayModalAddProducts(value: boolean): void {
+    this.displayAddProductCategory.set(value);
   }
 
   /******************* METHODS PRIVATE *******************/

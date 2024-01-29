@@ -1,0 +1,20 @@
+<ng-template #contentFilter>
+  @if (!(loadPageProductEvent$ | async)) {
+    <app-product-table [productList]="productList" [productsAddedList]="productsAddedList" [displayButtonAction]="false" [displayCheckboxAction]="true"/>
+  }
+  @if(!(loadPageProductEvent$ | async) && pagination?.totalElements > size) {
+    <ng-container footer>
+      <ui-pagination class="p-4 w-full *:flex *:justify-center"
+        [pagination]="pagination"
+        (nextPageEvent$)="nextPage()" (previousPageEvent$)="previousPage()"
+        />
+    </ng-container>
+  }
+</ng-template>
+
+<ng-template #sideFilter>
+  <app-filter-page-product
+    [filter]="filterForm"
+    (searchEvent$)="search($event)"
+  />
+</ng-template>
