@@ -11,20 +11,19 @@ import { ROUTE } from '../../../shared/enums/route.enum';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ui-sidebar',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FeatherModule,
-    UiIconDirective
-  ],
-  templateUrl: './ui-sidebar.component.html',
-  styles: `
+    selector: 'ui-sidebar',
+    imports: [
+        CommonModule,
+        FeatherModule,
+        UiIconDirective
+    ],
+    templateUrl: './ui-sidebar.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiSidebarComponent implements OnInit, OnDestroy {
  

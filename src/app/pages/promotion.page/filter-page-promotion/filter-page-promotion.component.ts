@@ -12,27 +12,26 @@ import { UiLabelDirective } from '../../../shared/directives/forms/ui-label.dire
 import { UiSelectDirective } from '../../../shared/directives/forms/ui-select.directive';
 
 @Component({
-  selector: 'app-filter-page-promotion',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    UiInputDirective,
-    UiLabelDirective,
-    UiSelectDirective,
-    NgxMaskDirective,
-    UiButtonSecondaryDirective,
-    UiModalSideComponent,
-    UiButtonPrimaryDirective,
-    UiButtonIconComponent,
-  ],
-  templateUrl: './filter-page-promotion.component.html',
-  styles: `
+    selector: 'app-filter-page-promotion',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        UiInputDirective,
+        UiLabelDirective,
+        UiSelectDirective,
+        NgxMaskDirective,
+        UiButtonSecondaryDirective,
+        UiModalSideComponent,
+        UiButtonPrimaryDirective,
+        UiButtonIconComponent,
+    ],
+    templateUrl: './filter-page-promotion.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterPagePromotionComponent implements OnInit {
 

@@ -15,27 +15,26 @@ import { UiButtonSecondaryDirective } from '../../../shared/directives/buttons/u
 import { UiFormDirectiveModule } from '../../../shared/directives/forms/ui-form-directive.module';
 
 @Component({
-  selector: 'app-create-promotion',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UiModalComponent,
-    NgxMaskDirective,
-    ReactiveFormsModule,
-    UiFormDirectiveModule,
-    UiButtonSecondaryDirective,
-    UiModalSideComponent,
-    UiButtonPrimaryDirective,
-    UiButtonIconComponent,
-    UiButtonComponent,
-  ],
-  templateUrl: './create-promotion.component.html',
-  styles: `
+    selector: 'app-create-promotion',
+    imports: [
+        CommonModule,
+        UiModalComponent,
+        NgxMaskDirective,
+        ReactiveFormsModule,
+        UiFormDirectiveModule,
+        UiButtonSecondaryDirective,
+        UiModalSideComponent,
+        UiButtonPrimaryDirective,
+        UiButtonIconComponent,
+        UiButtonComponent,
+    ],
+    templateUrl: './create-promotion.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreatePromotionComponent implements OnInit {
 

@@ -7,19 +7,18 @@ import { FeatherModule } from 'angular-feather';
 import { ModalFullFilterConfig } from '../../../../shared/models/modal-config.model';
 
 @Component({
-  selector: 'app-ui-modal-full-filter',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FeatherModule,
-  ],
-  templateUrl: './ui-modal-full-filter.component.html',
-  styles: `
+    selector: 'app-ui-modal-full-filter',
+    imports: [
+        CommonModule,
+        FeatherModule,
+    ],
+    templateUrl: './ui-modal-full-filter.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiModalFullFilterComponent implements OnInit, OnDestroy {
 

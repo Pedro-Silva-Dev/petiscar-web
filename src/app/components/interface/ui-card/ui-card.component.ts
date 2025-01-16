@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, Input, type OnInit } from '@angular
 
 @Component({
     selector: 'ui-card',
-    standalone: true,
     imports: [
         CommonModule,
     ],
@@ -13,7 +12,7 @@ import { ChangeDetectionStrategy, Component, Input, type OnInit } from '@angular
       display: block;
     }
   `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class UiCardComponent implements OnInit {
 

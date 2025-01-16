@@ -29,34 +29,33 @@ import { ProductTableComponent } from '../../product.page/product-table/product-
 import { AddProductCategoryComponent } from './add-product-category/add-product-category.component';
 
 @Component({
-  selector: 'app-category-detail.page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UiButtonIconComponent,
-    UiButtonComponent,
-    UiTableComponent,
-    AddProductCategoryComponent,
-    UiPaginationListComponent,
-    FilterPageProductComponent,
-    UiButtonModule,
-    UiDropdownComponent,
-    ReactiveFormsModule,
-    UiAlertModule,
-    UiBadgeModule,
-    UiFormDirectiveModule,
-    FeatherModule,
-    UiFeatherIconDirectiveModule,
-    UiLinkDirective,
-    UiModalFullFilterComponent
-  ],
-  templateUrl: './category-detail.page.component.html',
-  styles: `
+    selector: 'app-category-detail.page',
+    imports: [
+        CommonModule,
+        UiButtonIconComponent,
+        UiButtonComponent,
+        UiTableComponent,
+        AddProductCategoryComponent,
+        UiPaginationListComponent,
+        FilterPageProductComponent,
+        UiButtonModule,
+        UiDropdownComponent,
+        ReactiveFormsModule,
+        UiAlertModule,
+        UiBadgeModule,
+        UiFormDirectiveModule,
+        FeatherModule,
+        UiFeatherIconDirectiveModule,
+        UiLinkDirective,
+        UiModalFullFilterComponent
+    ],
+    templateUrl: './category-detail.page.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryDetailPageComponent implements OnInit {
 

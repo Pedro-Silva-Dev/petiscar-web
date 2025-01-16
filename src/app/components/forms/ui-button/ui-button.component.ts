@@ -3,13 +3,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, comput
 import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-button-primary.directive';
 
 @Component({
-  selector: 'app-ui-button',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UiButtonPrimaryDirective
-  ],
-  template: `
+    selector: 'app-ui-button',
+    imports: [
+        CommonModule,
+        UiButtonPrimaryDirective
+    ],
+    template: `
   <button (click)="clickEvent()" ui-primary [disabled]="disabled" class="w-full {{loadAction() ? 'pointer-events-none' : ''}}">
     {{buttonText()}}
     @if(loadAction()) {
@@ -18,12 +17,12 @@ import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-
       </svg>
     }
   </button>`,
-  styles: `
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiButtonComponent { 
 

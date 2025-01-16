@@ -29,28 +29,26 @@ import { UiFormDirectiveModule } from '../../shared/directives/forms/ui-form-dir
 import { ProductTableComponent } from './product-table/product-table.component';
 
 @Component({
-  selector: 'app-product.page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UiTableComponent,
-    ProductTableComponent,
-    CreateProductComponent,
-    UiPaginationComponent,
-    UiDropdownComponent,
-    UiButtonIconComponent,
-    UiModalSideComponent,
-    FilterPageProductComponent,
-    NgxMaskDirective,
-    UiFormDirectiveModule,
-    UiButtonModule,
-    ReactiveFormsModule,
-    UiAlertModule,
-    UiBadgeModule
-    
-  ],
-  templateUrl: './product.page.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-product.page',
+    imports: [
+        CommonModule,
+        UiTableComponent,
+        ProductTableComponent,
+        CreateProductComponent,
+        UiPaginationComponent,
+        UiDropdownComponent,
+        UiButtonIconComponent,
+        UiModalSideComponent,
+        FilterPageProductComponent,
+        NgxMaskDirective,
+        UiFormDirectiveModule,
+        UiButtonModule,
+        ReactiveFormsModule,
+        UiAlertModule,
+        UiBadgeModule
+    ],
+    templateUrl: './product.page.component.html',
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ProductPageComponent implements OnInit {
 

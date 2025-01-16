@@ -6,15 +6,14 @@ import { UiIconDirective } from '../../../shared/directives/interface/icons/ui-i
 import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-button-primary.directive';
 
 @Component({
-  selector: 'ui-button-icon',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FeatherModule,
-    UiIconDirective,
-    UiButtonPrimaryDirective
-  ],
-  template: `
+    selector: 'ui-button-icon',
+    imports: [
+        CommonModule,
+        FeatherModule,
+        UiIconDirective,
+        UiButtonPrimaryDirective
+    ],
+    template: `
    <button (click)="clickEvent()" (mouseover)="hover(true)" (mouseout)="hover(false)" ui-primary class="w-full {{loadAction() && isLoadingActive ? 'pointer-events-none' : ''}}">
    <i-feather class="*:w-[1.3rem] *:h-[1.3rem] text-primary hover:*:text-white {{hoverAction() ? '*:text-white' : ''}}" [name]="icon"></i-feather>
     @if(loadAction() && isLoadingActive) {
@@ -23,12 +22,12 @@ import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-
       </svg>
     }
   </button>`,
-  styles: `
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiButtonIconComponent { 
 

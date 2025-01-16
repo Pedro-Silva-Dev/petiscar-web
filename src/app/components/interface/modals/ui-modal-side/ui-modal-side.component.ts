@@ -6,13 +6,12 @@ import { UI_ICON } from '../../../../shared/enums/ui-icons.num';
 import { Unsubscribable } from 'rxjs';
 
 @Component({
-  selector: 'app-ui-modal-side',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FeatherModule,
-  ],
-  template: `
+    selector: 'app-ui-modal-side',
+    imports: [
+        CommonModule,
+        FeatherModule,
+    ],
+    template: `
     <dialog class="modal {{isOpen() ? 'modal-open' : 'hidden'}}">
         <div class="modal-box p-0 modal-side w-72 md:w-96">
             <div class="border-b-[1px] border-b-slate-600/20">
@@ -27,13 +26,13 @@ import { Unsubscribable } from 'rxjs';
         </div>
       </dialog>
   `,
-  styles: `
+    styles: `
     :host {
       display: block;
     }
     
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiModalSideComponent implements OnInit, OnDestroy {
   

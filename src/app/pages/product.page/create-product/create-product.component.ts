@@ -18,22 +18,21 @@ import { UiToastService } from '../../../services/ui-toast.service';
 import { UiButtonComponent } from '../../../components/forms/ui-button/ui-button.component';
 
 @Component({
-  selector: 'app-create-product',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UiModalComponent,
-    NgxMaskDirective,
-    ReactiveFormsModule,
-    UiFormDirectiveModule,
-    UiButtonSecondaryDirective,
-    UiModalSideComponent,
-    UiButtonPrimaryDirective,
-    UiButtonIconComponent,
-    UiButtonComponent,
-  ],
-  templateUrl: './create-product.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-create-product',
+    imports: [
+        CommonModule,
+        UiModalComponent,
+        NgxMaskDirective,
+        ReactiveFormsModule,
+        UiFormDirectiveModule,
+        UiButtonSecondaryDirective,
+        UiModalSideComponent,
+        UiButtonPrimaryDirective,
+        UiButtonIconComponent,
+        UiButtonComponent,
+    ],
+    templateUrl: './create-product.component.html',
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class CreateProductComponent implements OnInit {
 

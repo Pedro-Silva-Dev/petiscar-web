@@ -13,27 +13,26 @@ import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-
 import { Product } from '../../../models/store/product.model';
 
 @Component({
-  selector: 'app-filter-page-product',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    UiInputDirective,
-    UiLabelDirective,
-    UiSelectDirective,
-    NgxMaskDirective,
-    UiButtonSecondaryDirective,
-    UiModalSideComponent,
-    UiButtonPrimaryDirective,
-    UiButtonIconComponent,
-  ],
-  templateUrl: './filter-page-product.component.html',
-  styles: `
+    selector: 'app-filter-page-product',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        UiInputDirective,
+        UiLabelDirective,
+        UiSelectDirective,
+        NgxMaskDirective,
+        UiButtonSecondaryDirective,
+        UiModalSideComponent,
+        UiButtonPrimaryDirective,
+        UiButtonIconComponent,
+    ],
+    templateUrl: './filter-page-product.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterPageProductComponent implements OnInit {
 

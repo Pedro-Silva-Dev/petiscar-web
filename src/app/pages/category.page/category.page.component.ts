@@ -23,30 +23,29 @@ import { ROUTE } from '../../shared/enums/route.enum';
 import { UiLinkDirective } from '../../shared/directives/interface/ui-link.directive';
 
 @Component({
-  selector: 'app-category.page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UiTableComponent,
-    UiPaginationComponent,
-    UiDropdownComponent,
-    UiButtonIconComponent,
-    FilterPageCategoryComponent,
-    CreateCategoryComponent,
-    UiFormDirectiveModule,
-    UiButtonModule,
-    ReactiveFormsModule,
-    UiAlertModule,
-    UiBadgeModule,
-    UiLinkDirective
-  ],
-  templateUrl: './category.page.component.html',
-  styles: `
+    selector: 'app-category.page',
+    imports: [
+        CommonModule,
+        UiTableComponent,
+        UiPaginationComponent,
+        UiDropdownComponent,
+        UiButtonIconComponent,
+        FilterPageCategoryComponent,
+        CreateCategoryComponent,
+        UiFormDirectiveModule,
+        UiButtonModule,
+        ReactiveFormsModule,
+        UiAlertModule,
+        UiBadgeModule,
+        UiLinkDirective
+    ],
+    templateUrl: './category.page.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryPageComponent implements OnInit {
 

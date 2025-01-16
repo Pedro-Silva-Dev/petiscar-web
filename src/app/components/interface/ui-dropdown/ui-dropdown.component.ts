@@ -4,13 +4,12 @@ import { UiButtonPrimaryDirective } from '../../../shared/directives/buttons/ui-
 
 @Component({
     selector: 'ui-dropdown',
-    standalone: true,
     imports: [
         CommonModule,
         UiButtonPrimaryDirective
     ],
     templateUrl: './ui-dropdown.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiDropdownComponent {
 

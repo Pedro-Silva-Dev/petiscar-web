@@ -22,32 +22,31 @@ import { CreatePromotionComponent } from './create-promotion/create-promotion.co
 import { FilterPagePromotionComponent } from './filter-page-promotion/filter-page-promotion.component';
 
 @Component({
-  selector: 'app-promotion.page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    CommonModule,
-    UiTableComponent,
-    CreatePromotionComponent,
-    UiPaginationComponent,
-    UiDropdownComponent,
-    UiButtonIconComponent,
-    UiModalSideComponent,
-    FilterPagePromotionComponent,
-    NgxMaskDirective,
-    UiFormDirectiveModule,
-    UiButtonModule,
-    ReactiveFormsModule,
-    UiAlertModule,
-    UiBadgeModule
-  ],
-  templateUrl: './promotion.page.component.html',
-  styles: `
+    selector: 'app-promotion.page',
+    imports: [
+        CommonModule,
+        CommonModule,
+        UiTableComponent,
+        CreatePromotionComponent,
+        UiPaginationComponent,
+        UiDropdownComponent,
+        UiButtonIconComponent,
+        UiModalSideComponent,
+        FilterPagePromotionComponent,
+        NgxMaskDirective,
+        UiFormDirectiveModule,
+        UiButtonModule,
+        ReactiveFormsModule,
+        UiAlertModule,
+        UiBadgeModule
+    ],
+    templateUrl: './promotion.page.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PromotionPageComponent implements OnInit {
 

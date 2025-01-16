@@ -14,18 +14,17 @@ import { Router } from '@angular/router';
 import { ROUTE } from '../../shared/enums/route.enum';
 
 @Component({
-  selector: 'app-auth.page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UiInputDirective,
-    UiLabelDirective,
-    UiButtonPrimaryDirective,
-    UiButtonComponent,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './auth.page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-auth.page',
+    imports: [
+        CommonModule,
+        UiInputDirective,
+        UiLabelDirective,
+        UiButtonPrimaryDirective,
+        UiButtonComponent,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './auth.page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthPageComponent {
 

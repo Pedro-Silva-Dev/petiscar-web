@@ -8,7 +8,6 @@ import { MODAL_SIZE } from '../../../../shared/enums/modal-size.enum';
 
 @Component({
     selector: 'app-ui-modal',
-    standalone: true,
     imports: [
         CommonModule,
         FeatherModule,
@@ -35,7 +34,7 @@ import { MODAL_SIZE } from '../../../../shared/enums/modal-size.enum';
         display: block;
       }
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class UiModalComponent implements OnInit, OnDestroy {
 

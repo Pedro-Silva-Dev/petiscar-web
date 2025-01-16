@@ -10,24 +10,23 @@ import { UiBadgeModule } from '../../../shared/directives/interface/ui-badge/ui-
 import { UiFormDirectiveModule } from '../../../shared/directives/forms/ui-form-directive.module';
 
 @Component({
-  selector: 'app-product-table',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UiTableComponent,
-    UiPaginationComponent,
-    UiDropdownComponent,
-    UiAlertModule,
-    UiBadgeModule,
-    UiFormDirectiveModule
-  ],
-  templateUrl: './product-table.component.html',
-  styles: `
+    selector: 'app-product-table',
+    imports: [
+        CommonModule,
+        UiTableComponent,
+        UiPaginationComponent,
+        UiDropdownComponent,
+        UiAlertModule,
+        UiBadgeModule,
+        UiFormDirectiveModule
+    ],
+    templateUrl: './product-table.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductTableComponent implements OnInit {
  

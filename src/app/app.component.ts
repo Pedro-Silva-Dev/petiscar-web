@@ -8,19 +8,18 @@ import { UiModalSideComponent } from './components/interface/modals/ui-modal-sid
 import { UiModalFullFilterComponent } from './components/interface/modals/ui-modal-full-filter/ui-modal-full-filter.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    UiToastComponent,
-    UiSidebarComponent,
-    UiModalComponent,
-    UiModalSideComponent,
-    UiModalFullFilterComponent
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        UiToastComponent,
+        UiSidebarComponent,
+        UiModalComponent,
+        UiModalSideComponent,
+        UiModalFullFilterComponent
+    ],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit{
   

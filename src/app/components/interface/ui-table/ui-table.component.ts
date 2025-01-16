@@ -5,13 +5,12 @@ import { BehaviorSubject, Unsubscribable } from 'rxjs';
 
 @Component({
     selector: 'ui-table',
-    standalone: true,
     imports: [
         CommonModule,
         UiCardComponent
     ],
     templateUrl: './ui-table.component.html',
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class UiTableComponent implements OnInit, OnDestroy{
    

@@ -9,24 +9,23 @@ import { UiModalSideComponent } from '../../../components/interface/modals/ui-mo
 import { UiButtonModule } from '../../../shared/directives/buttons/ui-button.module';
 
 @Component({
-  selector: 'app-filter-page-category',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NgxMaskDirective,
-    UiModalSideComponent,
-    UiButtonIconComponent,
-    UiFormDirectiveModule,
-    UiButtonModule
-  ],
-  templateUrl: './filter-page-category.component.html',
-  styles: `
+    selector: 'app-filter-page-category',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        NgxMaskDirective,
+        UiModalSideComponent,
+        UiButtonIconComponent,
+        UiFormDirectiveModule,
+        UiButtonModule
+    ],
+    templateUrl: './filter-page-category.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterPageCategoryComponent implements OnInit {
 

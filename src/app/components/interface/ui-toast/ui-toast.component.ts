@@ -4,12 +4,11 @@ import { UiToastService } from '../../../services/ui-toast.service';
 import { UI_TOAST_TYPE } from '../../../shared/enums/ui-toast-type.enum';
 
 @Component({
-  selector: 'ui-toast',
-  standalone: true,
-  imports: [
-    CommonModule,
-  ],
-  template: `
+    selector: 'ui-toast',
+    imports: [
+        CommonModule,
+    ],
+    template: `
   @if(!disable()) {
     <div class="transition-opacity duration-1000 ease-out z-[9999] {{active() ? 'opacity-100 fixed' : 'opacity-0'}}">
         <div class="toast toast-top toast-end">
@@ -20,7 +19,7 @@ import { UI_TOAST_TYPE } from '../../../shared/enums/ui-toast-type.enum';
       </div>
   }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiToastComponent implements OnInit {
 

@@ -6,26 +6,25 @@ import { UiIconDirective } from '../../../shared/directives/interface/icons/ui-i
 import { FeatherModule } from 'angular-feather';
 
 @Component({
-  selector: 'ui-pagination',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FeatherModule,
-    UiIconDirective
-  ],
-  template: `
+    selector: 'ui-pagination',
+    imports: [
+        CommonModule,
+        FeatherModule,
+        UiIconDirective
+    ],
+    template: `
   <div class="join w-full">
     <button (click)="previousPage()" class="join-item btn bg-transparent border-transparent rounded-full shadow-none hover:bg-gray-200 hover:border-gray-200"><i-feather class="*:w-6 *:h-6 text-primary" [name]="icons.ARROW_LEFT"></i-feather></button>
     <button class="join-item btn text-stone-700 pointer-events-none bg-transparent border-transparent shadow-none">Página {{(pagination?.number + 1)}}/{{pagination?.totalPages}}</button>
     <button (click)="nextPage()" class="join-item btn bg-transparent border-transparent rounded-full shadow-none hover:bg-gray-200 hover:border-gray-200"><i-feather class="*:w-6 *:h-6 text-primary" [name]="icons.ARROW_RIGHT"></i-feather></button>
   </div>
   `,
-  styles: `
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UiPaginationComponent {
 

@@ -22,29 +22,28 @@ import { UiFeatherIconDirectiveModule } from '../../../shared/directives/interfa
 import { UiPaginationListComponent } from '../../../components/interface/ui-pagination-list/ui-pagination-list.component';
 
 @Component({
-  selector: 'app-create-category',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UiButtonIconComponent,
-    UiButtonComponent,
-    UiTableComponent,
-    UiPaginationListComponent,
-    UiButtonModule,
-    ReactiveFormsModule,
-    UiAlertModule,
-    UiBadgeModule,
-    UiFormDirectiveModule,
-    FeatherModule,
-    UiFeatherIconDirectiveModule
-  ],
-  templateUrl: './create-category.component.html',
-  styles: `
+    selector: 'app-create-category',
+    imports: [
+        CommonModule,
+        UiButtonIconComponent,
+        UiButtonComponent,
+        UiTableComponent,
+        UiPaginationListComponent,
+        UiButtonModule,
+        ReactiveFormsModule,
+        UiAlertModule,
+        UiBadgeModule,
+        UiFormDirectiveModule,
+        FeatherModule,
+        UiFeatherIconDirectiveModule
+    ],
+    templateUrl: './create-category.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateCategoryComponent implements OnInit {
 

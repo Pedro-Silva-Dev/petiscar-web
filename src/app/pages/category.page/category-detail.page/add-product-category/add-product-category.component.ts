@@ -13,21 +13,20 @@ import { ProductService } from '../../../../services/product.service';
 import { UiPaginationComponent } from '../../../../components/interface/ui-pagination/ui-pagination.component';
 
 @Component({
-  selector: 'app-add-product-category',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FilterPageProductComponent,
-    ProductTableComponent,
-    UiPaginationComponent,
-  ],
-  templateUrl: './add-product-category.component.html',
-  styles: `
+    selector: 'app-add-product-category',
+    imports: [
+        CommonModule,
+        FilterPageProductComponent,
+        ProductTableComponent,
+        UiPaginationComponent,
+    ],
+    templateUrl: './add-product-category.component.html',
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddProductCategoryComponent implements OnInit, AfterViewInit, OnDestroy {
   

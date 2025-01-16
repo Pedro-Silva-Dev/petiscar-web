@@ -4,13 +4,12 @@ import { Pagination } from '../../../shared/models/pagination.model';
 import { UiPaginationComponent } from '../ui-pagination/ui-pagination.component';
 
 @Component({
-  selector: 'app-ui-pagination-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UiPaginationComponent
-  ],
-  template: `
+    selector: 'app-ui-pagination-list',
+    imports: [
+        CommonModule,
+        UiPaginationComponent
+    ],
+    template: `
    @if(data?.length > size) {
     <ui-pagination class="w-full"
       [pagination]="pagination"
@@ -18,12 +17,12 @@ import { UiPaginationComponent } from '../ui-pagination/ui-pagination.component'
     />
    }
   `,
-  styles: `
+    styles: `
     :host {
       display: block;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class UiPaginationListComponent {
 
